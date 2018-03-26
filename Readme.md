@@ -1,7 +1,7 @@
 # Личный проект «Угадай мелодию» [![Build status][travis-image]][travis-url]
 
 * Студент: [Сергей Зверобоев](https://up.htmlacademy.ru/ecmascript/4/user/307159).
-* Наставник: `Неизвестно`.
+* Наставник: [Иван Стрелков](https://htmlacademy.ru/profile/id427611).
 
 ---
 
