@@ -1,4 +1,6 @@
-import getElementFromTemplate from '../getElementFromTemplate';
+import getElementFromTemplate from '../utils/getElementFromTemplate';
+import renderScreen from "../utils/renderScreen";
+import welcome from "./welcome";
 
 // Результат игры: проигрыш закончились попытки
 const template = `
@@ -10,5 +12,9 @@ const template = `
     <span role="button" tabindex="0" class="main-replay">Попробовать ещё раз</span>
   </section>
 `;
+const screen = getElementFromTemplate(template);
+const replayBtn = screen.querySelector(`.main-replay`);
 
-export default getElementFromTemplate(template);
+replayBtn.addEventListener(`click`, () => renderScreen(welcome));
+
+export default screen;

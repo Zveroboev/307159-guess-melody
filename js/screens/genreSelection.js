@@ -1,6 +1,10 @@
-import getElementFromTemplate from '../getElementFromTemplate';
-import renderScreen from "../renderScreen";
+import getElementFromTemplate from '../utils/getElementFromTemplate';
+import renderScreen from "../utils/renderScreen";
+import getRandomValue from '../utils/getRandomValue';
+
 import winResult from './winResult';
+import timeIsOver from './timeIsOver';
+import attemptsEnded from './attemptsEnded';
 
 // Игра на выбор жанра
 const template = `
@@ -91,7 +95,7 @@ const screen = getElementFromTemplate(template);
 const answers = [...screen.querySelectorAll(`input[name="answer"]`)];
 const answerBtn = screen.querySelector(`.genre-answer-send`);
 
-function disableIfNotSelected() {
+const disableIfNotSelected = () => {
   const checkedAnswer = answers.find((answer) => answer.checked);
 
   if (checkedAnswer) {
@@ -100,10 +104,17 @@ function disableIfNotSelected() {
   }
 
   answerBtn.disabled = true;
-}
+};
+
+const renderRandomScreen = () => {
+  const screens = [winResult, timeIsOver, attemptsEnded];
+  const index = getRandomValue(0, 2);
+
+  renderScreen(screens[index]);
+};
 
 disableIfNotSelected();
 answers.forEach((answer) => answer.addEventListener(`change`, disableIfNotSelected));
-answerBtn.addEventListener(`click`, () => renderScreen(winResult));
+answerBtn.addEventListener(`click`, renderRandomScreen);
 
 export default screen;

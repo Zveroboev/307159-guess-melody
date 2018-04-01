@@ -1,5 +1,5 @@
-import getElementFromTemplate from '../getElementFromTemplate';
-import renderScreen from "../renderScreen";
+import getElementFromTemplate from '../utils/getElementFromTemplate';
+import renderScreen from "../utils/renderScreen";
 import genreSelection from './genreSelection';
 
 // Игра на выбор исполнителя
