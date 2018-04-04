@@ -1,6 +1,6 @@
 import getElementFromTemplate from '../utils/getElementFromTemplate';
 import renderScreen from "../utils/renderScreen";
-import artistSelection from "./artistSelection";
+import artistSelection from "./artist-selection-screen";
 
 // Приветствие
 const template = `

@@ -2,9 +2,9 @@ import getElementFromTemplate from '../utils/getElementFromTemplate';
 import renderScreen from "../utils/renderScreen";
 import getRandomValue from '../utils/getRandomValue';
 
-import winResult from './winResult';
-import timeIsOver from './timeIsOver';
-import attemptsEnded from './attemptsEnded';
+import winResult from './win-result-screen';
+import timeIsOver from './time-is-over-screen';
+import attemptsEnded from './attempts-ended-screen';
 
 // Игра на выбор жанра
 const template = `

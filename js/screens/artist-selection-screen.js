@@ -1,6 +1,6 @@
 import getElementFromTemplate from '../utils/getElementFromTemplate';
 import renderScreen from "../utils/renderScreen";
-import genreSelection from './genreSelection';
+import genreSelection from './genre-selection-screen';
 
 // Игра на выбор исполнителя
 const template = `
