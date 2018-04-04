@@ -1,14 +1,14 @@
 import getElementFromTemplate from '../utils/getElementFromTemplate';
 import renderScreen from "../utils/renderScreen";
-import welcome from "./welcome";
+import welcome from "./welcome-screen";
 
-// Результат игры: проигрыш закончились попытки
+// Результат игры: проигрыш время вышло
 const template = `
 <section class="main main--result">
     <section class="logo" title="Угадай мелодию"><h1>Угадай мелодию</h1></section>
 
-    <h2 class="title">Какая жалость!</h2>
-    <div class="main-stat">У вас закончились все попытки.<br>Ничего, повезёт в следующий раз!</div>
+    <h2 class="title">Увы и ах!</h2>
+    <div class="main-stat">Время вышло!<br>Вы не успели отгадать все мелодии</div>
     <span role="button" tabindex="0" class="main-replay">Попробовать ещё раз</span>
   </section>
 `;
