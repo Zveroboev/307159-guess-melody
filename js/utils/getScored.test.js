@@ -30,8 +30,8 @@ describe(`Подсчет результатов игры`, () => {
 
   it(`должен вернуть -1 если правильных ответов меньше 10`, () => {
     const newAnswers = getDeepCopy(answers);
-    newAnswers[0].current = false;
 
+    newAnswers[0].current = false;
     assert.equal(getScored(newAnswers, 2), -1);
   });
 
@@ -39,10 +39,18 @@ describe(`Подсчет результатов игры`, () => {
     assert.equal(getScored(answers, 3), 10);
   });
 
-  it(`должен вернуть правильное колличество очков`, () => {
+  it(`должен посчитать правильное колличество очков`, () => {
     const newAnswers = getDeepCopy(answers);
-    newAnswers[0].time = 3000;
 
+    newAnswers[0].time = 3000;
     assert.equal(getScored(newAnswers, 3), 11);
+
+    newAnswers[1].time = 3000;
+    assert.equal(getScored(newAnswers, 3), 12);
+
+    newAnswers.forEach((answer) => {
+      answer.time = 3000;
+    });
+    assert.equal(getScored(newAnswers, 3), 20);
   });
 });
