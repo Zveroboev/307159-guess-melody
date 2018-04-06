@@ -8,6 +8,7 @@ const getDeepCopy = (data) => {
   for (let key in data) {
     if (data.hasOwnProperty(key)) {
       const value = data[key];
+
       output[key] = (typeof value === `object`) ? getDeepCopy(value) : value;
     }
   }
