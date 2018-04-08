@@ -1,5 +1,5 @@
-import getElementFromTemplate from '../utils/getElementFromTemplate';
-import renderScreen from "../utils/renderScreen";
+import getElementFromTemplate from '../data/getElementFromTemplate';
+import renderScreen from "../data/renderScreen";
 import artistSelection from "./artist-selection-screen";
 
 // Приветствие

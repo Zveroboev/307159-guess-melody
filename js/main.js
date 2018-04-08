@@ -1,4 +1,4 @@
 import welcome from './screens/welcome-screen';
-import renderScreen from './utils/renderScreen';
+import renderScreen from './data/renderScreen';
 
 renderScreen(welcome);
