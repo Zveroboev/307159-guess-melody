@@ -1,10 +1,10 @@
-import getElementFromTemplate from '../data/getElementFromTemplate';
-import renderScreen from "../data/renderScreen";
+import getElementFromTemplate from '../utils/getElementFromTemplate';
+import renderScreen from "../utils/renderScreen";
 import getRandomValue from '../utils/getRandomValue';
 
-import winResult from './win-result-screen';
-import timeIsOver from './time-is-over-screen';
-import attemptsEnded from './attempts-ended-screen';
+import winResult from './win';
+import timeIsOver from './lose-time';
+import attemptsEnded from './lose-lives';
 
 // Игра на выбор жанра
 const template = `

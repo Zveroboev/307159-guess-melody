@@ -1,27 +1,13 @@
-import getElementFromTemplate from '../data/getElementFromTemplate';
-import renderScreen from "../data/renderScreen";
-import genreSelection from './genre-selection-screen';
+import getElementFromTemplate from '../utils/getElementFromTemplate';
+import renderScreen from "../utils/renderScreen";
+import genreSelection from './level-genre';
+import header from './header';
 
 // Игра на выбор исполнителя
 const template = `
 <section class="main main--level main--level-artist">
-    <svg xmlns="http://www.w3.org/2000/svg" class="timer" viewBox="0 0 780 780">
-      <circle
-        cx="390" cy="390" r="370"
-        class="timer-line"
-        style="filter: url(.#blur); transform: rotate(-90deg) scaleY(-1); transform-origin: center"></circle>
-
-      <div class="timer-value" xmlns="http://www.w3.org/1999/xhtml">
-        <span class="timer-value-mins">05</span><!--
-        --><span class="timer-value-dots">:</span><!--
-        --><span class="timer-value-secs">00</span>
-      </div>
-    </svg>
-    <div class="main-mistakes">
-      <img class="main-mistake" src="img/wrong-answer.png" width="35" height="49">
-      <img class="main-mistake" src="img/wrong-answer.png" width="35" height="49">
-    </div>
-
+    ${header}
+    
     <div class="main-wrap">
       <h2 class="title main-title">Кто исполняет эту песню?</h2>
       <div class="player-wrapper">

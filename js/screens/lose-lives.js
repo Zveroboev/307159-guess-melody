@@ -1,6 +1,6 @@
-import getElementFromTemplate from '../data/getElementFromTemplate';
-import renderScreen from "../data/renderScreen";
-import welcome from "./welcome-screen";
+import getElementFromTemplate from '../utils/getElementFromTemplate';
+import renderScreen from "../utils/renderScreen";
+import welcome from "./welcome";
 
 // Результат игры: проигрыш закончились попытки
 const template = `

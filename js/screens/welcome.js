@@ -1,6 +1,8 @@
-import getElementFromTemplate from '../data/getElementFromTemplate';
-import renderScreen from "../data/renderScreen";
-import artistSelection from "./artist-selection-screen";
+import getElementFromTemplate from '../utils/getElementFromTemplate';
+import artistSelection from "./level-artist";
+import renderScreen from "../utils/renderScreen";
+
+import {MAX_LIVES, MAX_TIME, MS_PER_MINUTE} from '../data/constants';
 
 // Приветствие
 const template = `
@@ -9,8 +11,8 @@ const template = `
     <button class="main-play">Начать игру</button>
     <h2 class="title main-title">Правила игры</h2>
     <p class="text main-text">
-      Правила просты&nbsp;— за&nbsp;5 минут ответить на все вопросы.<br>
-      Ошибиться можно 3 раза.<br>
+      Правила просты&nbsp;— за&nbsp;${MAX_TIME / MS_PER_MINUTE} минут ответить на все вопросы.<br>
+      Ошибиться можно ${MAX_LIVES} раза.<br>
       Удачи!
     </p>
 </section>
