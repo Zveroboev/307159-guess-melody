@@ -1,11 +1,11 @@
 const FAIL_SCORE = 2;
 
-export default (prevState, isCurrent, isFast) => {
+export default (prevState, isCorrect, isFast) => {
   let {lastQuestions, lives, scores, gameStatus} = prevState;
 
   lastQuestions--;
 
-  if (isCurrent) {
+  if (isCorrect) {
     scores++;
     if (isFast) {
       scores++;

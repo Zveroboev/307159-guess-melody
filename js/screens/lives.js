@@ -1,11 +1,9 @@
-import initialState from '../data/initialState';
+import {MAX_LIVES} from '../data/constants';
 
-const getTemplate = (state) => `
+const getLivestemplate = (state) => `
 <div class="main-mistakes">
-  <img class="main-mistake" src="img/wrong-answer.png" width="35" height="49">
-  <img class="main-mistake" src="img/wrong-answer.png" width="35" height="49">
+  ${new Array(MAX_LIVES - state.lives).fill(`<img class="main-mistake" src="img/wrong-answer.png" width="35" height="49">`)}
 </div>
 `;
-const template = getTemplate(initialState);
 
-export default template;
+export default getLivestemplate;
