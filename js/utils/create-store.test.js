@@ -1,10 +1,10 @@
 import {assert} from 'chai';
-import Store from './store';
+import CreateStore from './create-store';
 
 describe(`Класс хранилища состояния приложения`, () => {
   describe(`Изменение состояния`, () => {
     it(`должен вернуть пустой объект состояния, если ничего не передали`, () => {
-      const store = new Store();
+      const store = new CreateStore();
       const expected = {};
 
       assert.deepEqual(store.getState(), expected);
@@ -12,14 +12,14 @@ describe(`Класс хранилища состояния приложения`
 
     it(`должен установить в изначальное состояние переданный объект`, () => {
       const state = {lives: 3, scores: 0};
-      const store = new Store(state);
+      const store = new CreateStore(state);
 
       assert.deepEqual(store.getState(), state);
     });
 
     it(`должен обновить состояние на переданный объект`, () => {
       const state = {lives: 3, scores: 0};
-      const store = new Store(state);
+      const store = new CreateStore(state);
       const expected = {lives: 3, scores: 0, gameStatus: `playing`};
 
       store.setState({lives: 3, scores: 0, gameStatus: `playing`});
@@ -28,7 +28,7 @@ describe(`Класс хранилища состояния приложения`
 
     it(`должен обновить состояние, дополнив его новыми данными`, () => {
       const state = {lives: 3, scores: 0};
-      const store = new Store(state);
+      const store = new CreateStore(state);
       const expected = {lives: 3, scores: 0, gameStatus: `playing`};
 
       store.setState({gameStatus: `playing`});
@@ -37,7 +37,7 @@ describe(`Класс хранилища состояния приложения`
 
     it(`должен обновить состояние, перезаписав измененные данные`, () => {
       const state = {lives: 3, scores: 0};
-      const store = new Store(state);
+      const store = new CreateStore(state);
       const expected = {lives: 3, scores: 2, gameStatus: `playing`};
 
       store.setState({gameStatus: `playing`, scores: 2});
@@ -47,7 +47,7 @@ describe(`Класс хранилища состояния приложения`
 
   describe(`Подписка на обновления`, () => {
     it(`должен добавить функция в массив обратных вызовов`, () => {
-      const store = new Store();
+      const store = new CreateStore();
       const callback = () => {};
 
       store.subscribe(callback);
@@ -56,7 +56,7 @@ describe(`Класс хранилища состояния приложения`
 
     it(`должен вызвать callback после обновления состояния`, () => {
       let test = `original`;
-      const store = new Store();
+      const store = new CreateStore();
       const callback = () => {
         test = `changed`;
       };
