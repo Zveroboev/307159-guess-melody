@@ -68,7 +68,18 @@ const getArtistLevelScreen = (state, levels) => {
     store.setState(diffState);
 
     const newState = store.getState();
-    renderScreen(getArtistLevelScreen(newState, levels));
+
+    if (newState.gameStatus === `playing`) {
+      const nextScreen = getArtistLevelScreen(newState, levels);
+
+      renderScreen(nextScreen);
+    } else if (newState.gameStatus === `lose`) {
+      const nextScreen = getArtistLevelScreen(newState, levels);
+
+      renderScreen(nextScreen);
+    }
+
+
   };
 
   playBtn.classList.remove(`player-control--pause`);
