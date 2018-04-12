@@ -1,6 +1,6 @@
 /* eslint-disable no-undefined */
 import {assert} from 'chai';
-import getDeepCopy from './getDeepCopy';
+import getDeepCopy from './get-deep-copy';
 
 describe(`Получение глубокой копии объекта`, () => {
   it(`должен вернуть примитив, если передан не объект`, () => {

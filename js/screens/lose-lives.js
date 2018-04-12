@@ -1,5 +1,5 @@
-import getElementFromTemplate from '../utils/getElementFromTemplate';
-import renderScreen from "../utils/renderScreen";
+import getElementFromTemplate from '../utils/get-element-from-template';
+import renderScreen from "../utils/render-screen";
 import welcome from "./welcome";
 
 // Результат игры: проигрыш закончились попытки

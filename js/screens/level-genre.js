@@ -1,21 +1,20 @@
-import getElementFromTemplate from '../utils/getElementFromTemplate';
-import renderScreen from "../utils/renderScreen";
+import getElementFromTemplate from '../utils/get-element-from-template';
+import renderScreen from "../utils/render-screen";
 import getRandomValue from '../utils/getRandomValue';
-import initialState from '../data/initialState';
 
-import getLivestemplate from './lives';
+import getLivesTemplate from './lives';
 import getTimeTemplate from './time';
 import winResult from './win';
 import timeIsOver from './lose-time';
 import attemptsEnded from './lose-lives';
 
 // Игра на выбор жанра
-const template = `
+const template = (state) => `
 <section class="main main--level main--level-genre">
     
-  ${getTimeTemplate(initialState)}
+  ${getTimeTemplate(state)}
   
-  ${getLivestemplate(initialState)}
+  ${getLivesTemplate(state)}
 
   <div class="main-wrap">
     <h2 class="title">Выберите инди-рок треки</h2>

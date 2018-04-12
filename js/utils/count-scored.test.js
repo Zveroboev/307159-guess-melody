@@ -1,5 +1,5 @@
 import {assert} from 'chai';
-import countScored from './countScored';
+import countScored from './count-scored';
 
 describe(`Подсчет очков`, () => {
   describe(`Верные ответы`, () => {

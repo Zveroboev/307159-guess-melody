@@ -1,7 +1,7 @@
 // Из-за вложенности describe-describe-it, ESLint ругается на один вложенный коллбек, думая, что он 4 по вложенности
 /* eslint-disable max-nested-callbacks */
 import {assert} from 'chai';
-import getResultInfo from './getResultInfo';
+import getResultInfo from './get-result-info';
 
 describe(`Вывод информации о результате игры`, () => {
   describe(`Определяем место среди всех игроков`, () => {

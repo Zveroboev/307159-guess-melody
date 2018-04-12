@@ -27,7 +27,8 @@ export default {
         name: `Audionautix`,
         isTrue: false
       },
-    ]
+    ],
+    next: `level-2`,
   },
   'level-2': {
     title: `Кто исполняет эту песню?`,
@@ -60,7 +61,8 @@ export default {
         name: `Gunnar Olsen`,
         isTrue: false
       },
-    ]
+    ],
+    next: `level-3`,
   },
   'level-3': {
     title: `Кто исполняет эту песню?`,
@@ -76,7 +78,7 @@ export default {
         id: `Thirty Seconds to Mars`,
         value: `val-1`,
         src: ``,
-        name: `Jingle Punks`,
+        name: `Егор Крид`,
         isTrue: false
       },
       {
@@ -90,10 +92,11 @@ export default {
         id: `answer-3`,
         value: `val-3`,
         src: ``,
-        name: `Егор Крид`,
+        name: `Jingle Punks`,
         isTrue: false
       },
-    ]
+    ],
+    next: `level-4`,
   },
   'level-4': {
     title: `Кто исполняет эту песню?`,
@@ -126,7 +129,8 @@ export default {
         name: `Riot`,
         isTrue: true
       },
-    ]
+    ],
+    next: `level-5`,
   },
   'level-5': {
     title: `Кто исполняет эту песню?`,
@@ -159,7 +163,8 @@ export default {
         name: `Ольга Бузова`,
         isTrue: false
       },
-    ]
+    ],
+    next: `level-6`,
   },
   'level-6': {
     title: `Кто исполняет эту песню?`,
@@ -192,6 +197,7 @@ export default {
         name: `Daft Punk`,
         isTrue: false
       },
-    ]
+    ],
+    next: null,
   },
 };
