@@ -1,109 +1,64 @@
 import getElementFromTemplate from '../utils/get-element-from-template';
-import renderScreen from "../utils/render-screen";
-import getRandomValue from '../utils/getRandomValue';
-
 import getLivesTemplate from './lives';
 import getTimeTemplate from './time';
-import winResult from './win';
-import timeIsOver from './lose-time';
-import attemptsEnded from './lose-lives';
 
 // Игра на выбор жанра
-const template = (state) => `
-<section class="main main--level main--level-genre">
+const getGenreLevelScreen = (state, level) => {
+  const genreLevelTemplate = `
+    <section class="main main--level main--level-genre">
+        
+      ${getTimeTemplate(state)}
+      
+      ${getLivesTemplate(state)}
     
-  ${getTimeTemplate(state)}
-  
-  ${getLivesTemplate(state)}
-
-  <div class="main-wrap">
-    <h2 class="title">Выберите инди-рок треки</h2>
-    <form class="genre">
-      <div class="genre-answer">
-        <div class="player-wrapper">
-          <div class="player">
-            <audio></audio>
-            <button class="player-control player-control--pause"></button>
-            <div class="player-track">
-              <span class="player-status"></span>
+      <div class="main-wrap">
+        <h2 class="title">Выберите инди-рок треки</h2>
+        <form class="genre">
+          ${level.audios.map((it) => `
+            <div class="genre-answer">
+              <div class="player-wrapper">
+                <div class="player">
+                  <audio src="${it.src}" preload></audio>
+                  <button class="player-control player-control--pause"></button>
+                  <div class="player-track">
+                    <span class="player-status"></span>
+                  </div>
+                </div>
+              </div>
+              <input type="checkbox" name="answer" value="${it.id}" id="${it.id}">
+              <label class="genre-answer-check" for="${it.id}"></label>
             </div>
-          </div>
-        </div>
-        <input type="checkbox" name="answer" value="answer-1" id="a-1">
-        <label class="genre-answer-check" for="a-1"></label>
+          `).join(` `)}
+        
+          <button class="genre-answer-send" type="submit">Ответить</button>
+        </form>
       </div>
-      
-      <div class="genre-answer">
-        <div class="player-wrapper">
-          <div class="player">
-            <audio></audio>
-            <button class="player-control player-control--play"></button>
-            <div class="player-track">
-              <span class="player-status"></span>
-            </div>
-          </div>
-        </div>
-        <input type="checkbox" name="answer" value="answer-1" id="a-2">
-        <label class="genre-answer-check" for="a-2"></label>
-      </div>
-      
-      <div class="genre-answer">
-        <div class="player-wrapper">
-          <div class="player">
-            <audio></audio>
-            <button class="player-control player-control--play"></button>
-            <div class="player-track">
-              <span class="player-status"></span>
-            </div>
-          </div>
-        </div>
-        <input type="checkbox" name="answer" value="answer-1" id="a-3">
-        <label class="genre-answer-check" for="a-3"></label>
-      </div>
-      
-      <div class="genre-answer">
-        <div class="player-wrapper">
-          <div class="player">
-            <audio></audio>
-            <button class="player-control player-control--play"></button>
-            <div class="player-track">
-              <span class="player-status"></span>
-            </div>
-          </div>
-        </div>
-        <input type="checkbox" name="answer" value="answer-1" id="a-4">
-        <label class="genre-answer-check" for="a-4"></label>
-      </div>
-      
-      <button class="genre-answer-send" type="submit">Ответить</button>
-    </form>
-  </div>
-</section>
+    </section>
 `;
-const screen = getElementFromTemplate(template);
-const answers = [...screen.querySelectorAll(`input[name="answer"]`)];
-const answerBtn = screen.querySelector(`.genre-answer-send`);
+  const genreLevelScreen = getElementFromTemplate(genreLevelTemplate);
+  const answers = [...genreLevelScreen.querySelectorAll(`input[name="answer"]`)];
+  const answerBtn = genreLevelScreen.querySelector(`.genre-answer-send`);
 
-const disableIfNotSelected = () => {
-  const checkedAnswer = answers.find((answer) => answer.checked);
+  const disableIfNotSelected = () => {
+    const checkedAnswer = answers.find((answer) => answer.checked);
 
-  if (checkedAnswer) {
-    answerBtn.disabled = false;
-    return;
-  }
+    if (checkedAnswer) {
+      answerBtn.disabled = false;
+      return;
+    }
 
-  answerBtn.disabled = true;
+    answerBtn.disabled = true;
+  };
+
+  const renderRandomScreen = () => {
+    console.log('---', `click`);
+  };
+
+  disableIfNotSelected();
+  answers.forEach((answer) => answer.addEventListener(`change`, disableIfNotSelected));
+  answerBtn.addEventListener(`click`, renderRandomScreen);
+
+  return genreLevelScreen;
 };
 
-const renderRandomScreen = () => {
-  const screens = [winResult, timeIsOver, attemptsEnded];
-  const index = getRandomValue(0, 2);
-
-  renderScreen(screens[index]);
-};
-
-disableIfNotSelected();
-answers.forEach((answer) => answer.addEventListener(`change`, disableIfNotSelected));
-answerBtn.addEventListener(`click`, renderRandomScreen);
-
-export default screen;
+export default getGenreLevelScreen;

@@ -26,9 +26,12 @@ export default {
         src: ``,
         name: `Audionautix`,
         isTrue: false
-      },
+      }
     ],
-    next: `level-2`,
+    next: {
+      name: `level-2`,
+      type: `artist`
+    }
   },
   'level-2': {
     title: `Кто исполняет эту песню?`,
@@ -60,9 +63,12 @@ export default {
         src: ``,
         name: `Gunnar Olsen`,
         isTrue: false
-      },
+      }
     ],
-    next: `level-3`,
+    next: {
+      name: `level-3`,
+      type: `artist`
+    }
   },
   'level-3': {
     title: `Кто исполняет эту песню?`,
@@ -94,9 +100,12 @@ export default {
         src: ``,
         name: `Jingle Punks`,
         isTrue: false
-      },
+      }
     ],
-    next: `level-4`,
+    next: {
+      name: `level-4`,
+      type: `artist`
+    }
   },
   'level-4': {
     title: `Кто исполняет эту песню?`,
@@ -128,9 +137,12 @@ export default {
         src: ``,
         name: `Riot`,
         isTrue: true
-      },
+      }
     ],
-    next: `level-5`,
+    next: {
+      name: `level-5`,
+      type: `artist`
+    }
   },
   'level-5': {
     title: `Кто исполняет эту песню?`,
@@ -162,9 +174,12 @@ export default {
         src: ``,
         name: `Ольга Бузова`,
         isTrue: false
-      },
+      }
     ],
-    next: `level-6`,
+    next: {
+      name: `level-6`,
+      type: `artist`
+    }
   },
   'level-6': {
     title: `Кто исполняет эту песню?`,
@@ -196,8 +211,52 @@ export default {
         src: ``,
         name: `Daft Punk`,
         isTrue: false
-      },
+      }
     ],
-    next: null,
+    next: {
+      name: `level-7`,
+      type: `genre`
+    }
   },
+  'level-7': {
+    title: `Выберите инди-рок треки`,
+    audios: [
+      {
+        id: `answer-1`,
+        artist: `Gunnar Olsen`,
+        name: `Home Stretch`,
+        image: `https://f4.bcbits.com/img/0004181452_10.jpg`,
+        src: `https://www.youtube.com/audiolibrary_download?vid=bcbe5be936a32fb1`,
+        genre: `Electronic`
+      },
+      {
+        id: `answer-2`,
+        artist: `Jingle Punks`,
+        name: `Lucky Day`,
+        image: `https://i.vimeocdn.com/portrait/992615_300x300`,
+        src: `https://www.youtube.com/audiolibrary_download?vid=bcbe5be936a32fb1`,
+        genre: `Pop`
+      },
+      {
+        id: `answer-3`,
+        artist: `Audionautix`,
+        name: `Travel Light`,
+        image: `http://4.bp.blogspot.com/-kft9qu5ET6U/VPFUBi9W-MI/AAAAAAAACYM/UxXilXKYwOc/s1600/audionautix%2BHalf%2BSize.jpg`,
+        src: `https://www.youtube.com/audiolibrary_download?vid=a127d9b7de8a17cf`,
+        genre: `Country`
+      },
+      {
+        id: `answer-4`,
+        artist: `Jingle Punks`,
+        name: `In the Land of Rhinoplasty`,
+        image: `https://i.vimeocdn.com/portrait/992615_300x300`,
+        src: `https://www.youtube.com/audiolibrary_download?vid=dc3b4dc549becd6b`,
+        genre: `Rock`
+      }
+    ],
+    next: {
+      name: `level-8`,
+      type: `genre`
+    }
+  }
 };

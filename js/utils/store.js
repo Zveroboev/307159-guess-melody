@@ -1,4 +1,4 @@
-export default class CreateStore {
+export default class Store {
   constructor(state = {}) {
     this.state = state;
     this.callbacks = [];

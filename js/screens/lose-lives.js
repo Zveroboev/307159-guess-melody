@@ -1,20 +1,24 @@
 import getElementFromTemplate from '../utils/get-element-from-template';
-import renderScreen from "../utils/render-screen";
-import welcome from "./welcome";
+import store from '../data/store';
+import initialState from '../data/initial-state';
 
 // Результат игры: проигрыш закончились попытки
-const template = `
-<section class="main main--result">
-    <section class="logo" title="Угадай мелодию"><h1>Угадай мелодию</h1></section>
-
-    <h2 class="title">Какая жалость!</h2>
-    <div class="main-stat">У вас закончились все попытки.<br>Ничего, повезёт в следующий раз!</div>
-    <span role="button" tabindex="0" class="main-replay">Попробовать ещё раз</span>
-  </section>
+const getLoseLivesScreen = () => {
+  const loseLivesScreenTemplate = `
+    <section class="main main--result">
+      <section class="logo" title="Угадай мелодию"><h1>Угадай мелодию</h1></section>
+      
+      <h2 class="title">Какая жалость!</h2>
+      <div class="main-stat">У вас закончились все попытки.<br>Ничего, повезёт в следующий раз!</div>
+      <span role="button" tabindex="0" class="main-replay">Попробовать ещё раз</span>
+    </section>
 `;
-const screen = getElementFromTemplate(template);
-const replayBtn = screen.querySelector(`.main-replay`);
+  const loseLivesScreen = getElementFromTemplate(loseLivesScreenTemplate);
+  const replayBtn = loseLivesScreen.querySelector(`.main-replay`);
 
-replayBtn.addEventListener(`click`, () => renderScreen(welcome));
+  replayBtn.addEventListener(`click`, () => store.setState(initialState));
 
-export default screen;
+  return loseLivesScreen;
+};
+
+export default getLoseLivesScreen;
