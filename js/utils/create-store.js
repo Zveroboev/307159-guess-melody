@@ -1,7 +1,7 @@
 export default class Store {
   constructor(state = {}) {
     this.state = state;
-    this.callbacks = [];
+    this._callbacks = new Set();
   }
 
   getState() {
@@ -10,10 +10,10 @@ export default class Store {
 
   setState(newState) {
     this.state = Object.assign({}, this.state, newState);
-    this.callbacks.forEach((cb) => cb());
+    this._callbacks.forEach((cb) => cb());
   }
 
   subscribe(callback) {
-    this.callbacks.push(callback);
+    this._callbacks.add(callback);
   }
 }

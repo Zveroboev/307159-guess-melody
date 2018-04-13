@@ -1,10 +1,5 @@
 import getElementFromTemplate from '../utils/get-element-from-template';
-import getArtistLevelScreen from './level-artist';
-import getLoseLivesScreen from './lose-lives';
-import renderScreen from "../utils/render-screen";
-import levels from '../data/levels';
 import store from '../data/store';
-import getGenreLevelScreen from "./level-genre";
 
 // Приветствие
 const getWelcomeScreen = () => {
@@ -24,28 +19,8 @@ const getWelcomeScreen = () => {
   const welcomeScreen = getElementFromTemplate(welcomeScreenTemplate);
   const playBtn = welcomeScreen.querySelector(`.main-play`);
 
-  const renderNextScreen = () => {
-    const state = store.getState();
-    const level = levels[state.level];
-
-    if (state.gameStatus === `playing`) {
-      const screen = state.type === `artist` ? getArtistLevelScreen(state, level) : getGenreLevelScreen(state, level);
-
-      renderScreen(screen);
-    } else if (state.gameStatus === `lose`) {
-      const loseLivesScreen = getLoseLivesScreen(state);
-
-      renderScreen(loseLivesScreen);
-    } else if (state.gameStatus === `win`) {
-
-    }
-
-  };
-
   const handlePlayClick = () => {
-    store.subscribe(renderNextScreen);
-    store.subscribe(() => console.log('---', store.getState()));
-    renderNextScreen();
+    store.setState({level: `level-1`, type: `artist`, gameStatus: `playing`});
   };
 
   playBtn.addEventListener(`click`, handlePlayClick);

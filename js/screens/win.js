@@ -1,23 +1,31 @@
 import getElementFromTemplate from '../utils/get-element-from-template';
-import renderScreen from "../utils/render-screen";
-import welcome from './welcome';
+import getResultInfo from '../utils/get-result-info';
+import initialState from '../data/initial-state';
+import store from '../data/store';
 
 // Результат игры: выигрыш
-const template = `
-<section class="main main--result">
-    <section class="logo" title="Угадай мелодию"><h1>Угадай мелодию</h1></section>
+const getWinScreen = (state) => {
+  const {scores, lives, time} = state;
 
-    <h2 class="title">Вы настоящий меломан!</h2>
-    <div class="main-stat">За&nbsp;3&nbsp;минуты и 25&nbsp;секунд
-      <br>вы&nbsp;набрали 12 баллов (8 быстрых)
-      <br>совершив 3 ошибки</div>
-    <span class="main-comparison">Вы заняли 2 место из 10. Это&nbsp;лучше чем у&nbsp;80%&nbsp;игроков</span>
-    <span role="button" tabindex="0" class="main-replay">Сыграть ещё раз</span>
-  </section>
-`;
-const screen = getElementFromTemplate(template);
-const replayBtn = screen.querySelector(`.main-replay`);
+  const winMessage = getResultInfo([], {scores, lives, time});
+  const winScreenTemplate = `
+    <section class="main main--result">
+      <section class="logo" title="Угадай мелодию"><h1>Угадай мелодию</h1></section>
+    
+      <h2 class="title">Вы настоящий меломан!</h2>
+      <div class="main-stat">За&nbsp;3&nbsp;минуты и 25&nbsp;секунд
+        <br>вы&nbsp;набрали 12 баллов (8 быстрых)
+        <br>совершив 3 ошибки</div>
+      <span class="main-comparison">${winMessage}</span>
+      <span role="button" tabindex="0" class="main-replay">Сыграть ещё раз</span>
+    </section>
+  `;
+  const winScreen = getElementFromTemplate(winScreenTemplate);
+  const replayBtn = winScreen.querySelector(`.main-replay`);
 
-replayBtn.addEventListener(`click`, () => renderScreen(welcome));
+  replayBtn.addEventListener(`click`, () => store.setState(initialState));
 
-export default screen;
+  return winScreen;
+};
+
+export default getWinScreen;

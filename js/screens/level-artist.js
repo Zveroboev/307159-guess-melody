@@ -8,10 +8,11 @@ import store from '../data/store';
 const getArtistLevelScreen = (state, level) => {
   const artistLevelTemplate = `
     <section class="main main--level main--level-artist">
+      
       ${getTimeTemplate(state)}
       
       ${getLivesTemplate(state)}
-        
+      
       <div class="main-wrap">
         <h2 class="title main-title">${level.title}</h2>
         <div class="player-wrapper">
@@ -59,8 +60,11 @@ const getArtistLevelScreen = (state, level) => {
     const isCorrect = answerID === correctAnswerID;
     const newState = countScored(state, isCorrect, false);
 
-    newState.level = level.next.name;
-    newState.type = level.next.type;
+    if (level.next) {
+      newState.level = level.next.name;
+      newState.type = level.next.type;
+    }
+
     store.setState(newState);
   };
 

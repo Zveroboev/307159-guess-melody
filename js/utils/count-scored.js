@@ -1,4 +1,4 @@
-const FAIL_SCORE = 2;
+import {FAIL_SCORE} from '../data/constants';
 
 export default (prevState, isCorrect, isFast) => {
   let {lastQuestions, lives, scores, gameStatus} = prevState;
@@ -15,11 +15,11 @@ export default (prevState, isCorrect, isFast) => {
     lives--;
   }
 
-  if (lives < 0) {
+  if (lives < 1) {
     gameStatus = `lose`;
   }
 
-  if (lastQuestions === 0 && lives >= 0) {
+  if (lastQuestions === 0 && lives >= 1) {
     gameStatus = `win`;
   }
 

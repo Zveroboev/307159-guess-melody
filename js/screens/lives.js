@@ -5,7 +5,7 @@ const getLivesTemplate = (state) => {
 
   return `
     <div class="main-mistakes">
-      ${new Array(MAX_LIVES - state.lives).fill(wrongAnswer).join(` `)}
+      ${wrongAnswer.repeat(MAX_LIVES - state.lives)}
     </div>
 `;
 };

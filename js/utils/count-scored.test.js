@@ -76,13 +76,13 @@ describe(`Подсчет очков`, () => {
     it(`должен подсчитать правильное колличество очков и жизней если игрок ответил не правильно (другие входные данные)`, () => {
       const prevState = {
         lastQuestions: 5,
-        lives: 1,
+        lives: 2,
         scores: 5,
         gameStatus: `playing`,
       };
       const expectedState = {
         lastQuestions: 4,
-        lives: 0,
+        lives: 1,
         scores: 3,
         gameStatus: `playing`,
       };
@@ -112,13 +112,13 @@ describe(`Подсчет очков`, () => {
     it(`должен сменить статус игры на "win", если кончились вопросы, остались жизни и последний ответ был не правильный`, () => {
       const prevState = {
         lastQuestions: 1,
-        lives: 1,
+        lives: 2,
         scores: 12,
         gameStatus: `playing`,
       };
       const expectedState = {
         lastQuestions: 0,
-        lives: 0,
+        lives: 1,
         scores: 10,
         gameStatus: `win`,
       };
@@ -129,13 +129,13 @@ describe(`Подсчет очков`, () => {
     it(`должен сменить статус игры на "lose", если кончились жизни и остались вопросы`, () => {
       const prevState = {
         lastQuestions: 4,
-        lives: 0,
+        lives: 1,
         scores: 5,
         gameStatus: `playing`,
       };
       const expectedState = {
         lastQuestions: 3,
-        lives: -1,
+        lives: 0,
         scores: 3,
         gameStatus: `lose`,
       };
@@ -146,13 +146,13 @@ describe(`Подсчет очков`, () => {
     it(`должен сменить статус игры на "lose", если кончились жизни, и вопросы`, () => {
       const prevState = {
         lastQuestions: 1,
-        lives: 0,
+        lives: 1,
         scores: 5,
         gameStatus: `playing`,
       };
       const expectedState = {
         lastQuestions: 0,
-        lives: -1,
+        lives: 0,
         scores: 3,
         gameStatus: `lose`,
       };

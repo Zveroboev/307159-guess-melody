@@ -5,7 +5,7 @@ export default {
   lives: MAX_LIVES,
   time: MAX_TIME,
   scores: 0,
-  level: `level-1`,
-  type: `artist`,
-  gameStatus: `playing`,
+  level: `level-0`,
+  type: ``,
+  gameStatus: `welcome`,
 };

@@ -227,7 +227,8 @@ export default {
         name: `Home Stretch`,
         image: `https://f4.bcbits.com/img/0004181452_10.jpg`,
         src: `https://www.youtube.com/audiolibrary_download?vid=bcbe5be936a32fb1`,
-        genre: `Electronic`
+        genre: `Electronic`,
+        isTrue: false
       },
       {
         id: `answer-2`,
@@ -235,7 +236,8 @@ export default {
         name: `Lucky Day`,
         image: `https://i.vimeocdn.com/portrait/992615_300x300`,
         src: `https://www.youtube.com/audiolibrary_download?vid=bcbe5be936a32fb1`,
-        genre: `Pop`
+        genre: `Pop`,
+        isTrue: false
       },
       {
         id: `answer-3`,
@@ -243,7 +245,8 @@ export default {
         name: `Travel Light`,
         image: `http://4.bp.blogspot.com/-kft9qu5ET6U/VPFUBi9W-MI/AAAAAAAACYM/UxXilXKYwOc/s1600/audionautix%2BHalf%2BSize.jpg`,
         src: `https://www.youtube.com/audiolibrary_download?vid=a127d9b7de8a17cf`,
-        genre: `Country`
+        genre: `Country`,
+        isTrue: false
       },
       {
         id: `answer-4`,
@@ -251,12 +254,190 @@ export default {
         name: `In the Land of Rhinoplasty`,
         image: `https://i.vimeocdn.com/portrait/992615_300x300`,
         src: `https://www.youtube.com/audiolibrary_download?vid=dc3b4dc549becd6b`,
-        genre: `Rock`
+        genre: `Rock`,
+        isTrue: true
       }
     ],
     next: {
       name: `level-8`,
       type: `genre`
     }
+  },
+  'level-8': {
+    title: `Выберите кантри треки`,
+    audios: [
+      {
+        id: `answer-1`,
+        artist: `Gunnar Olsen`,
+        name: `Home Stretch`,
+        image: `https://f4.bcbits.com/img/0004181452_10.jpg`,
+        src: `https://www.youtube.com/audiolibrary_download?vid=bcbe5be936a32fb1`,
+        genre: `Electronic`,
+        isTrue: false
+      },
+      {
+        id: `answer-2`,
+        artist: `Jingle Punks`,
+        name: `Lucky Day`,
+        image: `https://i.vimeocdn.com/portrait/992615_300x300`,
+        src: `https://www.youtube.com/audiolibrary_download?vid=bcbe5be936a32fb1`,
+        genre: `Pop`,
+        isTrue: false
+      },
+      {
+        id: `answer-3`,
+        artist: `Audionautix`,
+        name: `Travel Light`,
+        image: `http://4.bp.blogspot.com/-kft9qu5ET6U/VPFUBi9W-MI/AAAAAAAACYM/UxXilXKYwOc/s1600/audionautix%2BHalf%2BSize.jpg`,
+        src: `https://www.youtube.com/audiolibrary_download?vid=a127d9b7de8a17cf`,
+        genre: `Country`,
+        isTrue: true
+      },
+      {
+        id: `answer-4`,
+        artist: `Jingle Punks`,
+        name: `In the Land of Rhinoplasty`,
+        image: `https://i.vimeocdn.com/portrait/992615_300x300`,
+        src: `https://www.youtube.com/audiolibrary_download?vid=dc3b4dc549becd6b`,
+        genre: `Rock`,
+        isTrue: false
+      }
+    ],
+    next: {
+      name: `level-9`,
+      type: `genre`
+    }
+  },
+  'level-9': {
+    title: `Выберите треки жанра электроника`,
+    audios: [
+      {
+        id: `answer-1`,
+        artist: `Gunnar Olsen`,
+        name: `Home Stretch`,
+        image: `https://f4.bcbits.com/img/0004181452_10.jpg`,
+        src: `https://www.youtube.com/audiolibrary_download?vid=bcbe5be936a32fb1`,
+        genre: `Electronic`,
+        isTrue: true
+      },
+      {
+        id: `answer-2`,
+        artist: `Jingle Punks`,
+        name: `Lucky Day`,
+        image: `https://i.vimeocdn.com/portrait/992615_300x300`,
+        src: `https://www.youtube.com/audiolibrary_download?vid=bcbe5be936a32fb1`,
+        genre: `Pop`,
+        isTrue: false
+      },
+      {
+        id: `answer-3`,
+        artist: `Audionautix`,
+        name: `Travel Light`,
+        image: `http://4.bp.blogspot.com/-kft9qu5ET6U/VPFUBi9W-MI/AAAAAAAACYM/UxXilXKYwOc/s1600/audionautix%2BHalf%2BSize.jpg`,
+        src: `https://www.youtube.com/audiolibrary_download?vid=a127d9b7de8a17cf`,
+        genre: `Country`,
+        isTrue: false
+      },
+      {
+        id: `answer-4`,
+        artist: `Jingle Punks`,
+        name: `In the Land of Rhinoplasty`,
+        image: `https://i.vimeocdn.com/portrait/992615_300x300`,
+        src: `https://www.youtube.com/audiolibrary_download?vid=dc3b4dc549becd6b`,
+        genre: `Rock`,
+        isTrue: false
+      }
+    ],
+    next: {
+      name: `level-10`,
+      type: `genre`
+    }
+  },
+  'level-10': {
+    title: `Выберите поп треки`,
+    audios: [
+      {
+        id: `answer-1`,
+        artist: `Gunnar Olsen`,
+        name: `Home Stretch`,
+        image: `https://f4.bcbits.com/img/0004181452_10.jpg`,
+        src: `https://www.youtube.com/audiolibrary_download?vid=bcbe5be936a32fb1`,
+        genre: `Electronic`,
+        isTrue: false
+      },
+      {
+        id: `answer-2`,
+        artist: `Jingle Punks`,
+        name: `Lucky Day`,
+        image: `https://i.vimeocdn.com/portrait/992615_300x300`,
+        src: `https://www.youtube.com/audiolibrary_download?vid=bcbe5be936a32fb1`,
+        genre: `Pop`,
+        isTrue: true
+      },
+      {
+        id: `answer-3`,
+        artist: `Audionautix`,
+        name: `Travel Light`,
+        image: `http://4.bp.blogspot.com/-kft9qu5ET6U/VPFUBi9W-MI/AAAAAAAACYM/UxXilXKYwOc/s1600/audionautix%2BHalf%2BSize.jpg`,
+        src: `https://www.youtube.com/audiolibrary_download?vid=a127d9b7de8a17cf`,
+        genre: `Country`,
+        isTrue: false
+      },
+      {
+        id: `answer-4`,
+        artist: `Jingle Punks`,
+        name: `In the Land of Rhinoplasty`,
+        image: `https://i.vimeocdn.com/portrait/992615_300x300`,
+        src: `https://www.youtube.com/audiolibrary_download?vid=dc3b4dc549becd6b`,
+        genre: `Rock`,
+        isTrue: false
+      }
+    ],
+    next: {
+      name: `level-11`,
+      type: `genre`
+    }
+  },
+  'level-11': {
+    title: `Выберите инди-рок треки`,
+    audios: [
+      {
+        id: `answer-1`,
+        artist: `Gunnar Olsen`,
+        name: `Home Stretch`,
+        image: `https://f4.bcbits.com/img/0004181452_10.jpg`,
+        src: `https://www.youtube.com/audiolibrary_download?vid=bcbe5be936a32fb1`,
+        genre: `Electronic`,
+        isTrue: false
+      },
+      {
+        id: `answer-2`,
+        artist: `Jingle Punks`,
+        name: `Lucky Day`,
+        image: `https://i.vimeocdn.com/portrait/992615_300x300`,
+        src: `https://www.youtube.com/audiolibrary_download?vid=bcbe5be936a32fb1`,
+        genre: `Pop`,
+        isTrue: false
+      },
+      {
+        id: `answer-3`,
+        artist: `Audionautix`,
+        name: `Travel Light`,
+        image: `http://4.bp.blogspot.com/-kft9qu5ET6U/VPFUBi9W-MI/AAAAAAAACYM/UxXilXKYwOc/s1600/audionautix%2BHalf%2BSize.jpg`,
+        src: `https://www.youtube.com/audiolibrary_download?vid=a127d9b7de8a17cf`,
+        genre: `Country`,
+        isTrue: false
+      },
+      {
+        id: `answer-4`,
+        artist: `Jingle Punks`,
+        name: `In the Land of Rhinoplasty`,
+        image: `https://i.vimeocdn.com/portrait/992615_300x300`,
+        src: `https://www.youtube.com/audiolibrary_download?vid=dc3b4dc549becd6b`,
+        genre: `Rock`,
+        isTrue: true
+      }
+    ],
+    next: null
   }
 };
