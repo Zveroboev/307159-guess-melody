@@ -1,4 +1,7 @@
-import welcome from './screens/welcome-screen';
-import renderScreen from './data/renderScreen';
+import renderNextScreen from './utils/render-next-screen';
+import store from './data/store';
 
-renderScreen(welcome);
+// store.subscribe(() => console.log(`--- new State: `, store.getState()));
+store.subscribe(renderNextScreen);
+
+renderNextScreen();
