@@ -1,7 +1,7 @@
 const app = document.querySelector(`.app`);
 let currentScreen = app.querySelector(`.main`);
 
-const renderScreen = (newScreen) => {
+export default (newScreen) => {
   if (currentScreen === newScreen) {
     return;
   }
@@ -9,5 +9,3 @@ const renderScreen = (newScreen) => {
   app.replaceChild(newScreen, currentScreen);
   currentScreen = newScreen;
 };
-
-export default renderScreen;
