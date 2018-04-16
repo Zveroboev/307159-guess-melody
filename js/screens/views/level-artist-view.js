@@ -35,8 +35,8 @@ export default class WelcomeView extends AbstractView {
           <form class="main-list">
             ${this.level.answers.map((it) => `
               <div class="main-answer-wrapper">
-                <input class="main-answer-r" type="radio" id="${it.id}" name="answer" value="${it.value}"/>
-                <label class="main-answer" for="${it.id}" data-id="${it.id}">
+                <input class="main-answer-r" type="radio" id="answer-${it.id}" name="answer" value="val-${it.id}"/>
+                <label class="main-answer" for="answer-${it.id}" data-id="${it.id}">
                   <img class="main-answer-preview" src="http://placehold.it/134x134"
                        alt="${it.name}" width="134" height="134">
                   ${it.name}

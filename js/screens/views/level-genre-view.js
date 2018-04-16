@@ -24,19 +24,19 @@ export default class WelcomeView extends AbstractView {
         <div class="main-wrap">
           <h2 class="title">Выберите инди-рок треки</h2>
           <form class="genre">
-            ${this.level.audios.map((audio) => `
+            ${this.level.audios.map((it) => `
               <div class="genre-answer">
                 <div class="player-wrapper">
                   <div class="player">
-                    <audio src="${audio.src}" preload></audio>
+                    <audio src="${it.audio.src}" preload></audio>
                     <button class="player-control player-control--pause"></button>
                     <div class="player-track">
                       <span class="player-status"></span>
                     </div>
                   </div>
                 </div>
-                <input type="checkbox" name="answer" value="${audio.id}" id="${audio.id}">
-                <label class="genre-answer-check" for="${audio.id}"></label>
+                <input type="checkbox" name="answer" value="val-${it.audio.id}" id="answer-${it.audio.id}" data-id="${it.audio.id}">
+                <label class="genre-answer-check" for="answer-${it.audio.id}"></label>
               </div>
             `).join(` `)}
           

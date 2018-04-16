@@ -15,8 +15,11 @@ export default (state, level) => {
   screen.onSubmit = (evt) => {
     evt.preventDefault();
 
-    const checkedAnswersID = screen.answers.filter((answer) => answer.checked).map((checkedAnswer) => checkedAnswer.id);
-    const correctAnswersID = level.audios.filter((audio) => audio.isTrue).map((correctAudio) => correctAudio.id);
+    const checkedAnswersID = screen.answers
+        .filter((answer) => answer.checked)
+        .map((checkedAnswer) => parseInt(checkedAnswer.dataset.id, 10));
+
+    const correctAnswersID = level.audios.filter((audio) => audio.isTrue).map((correctAudio) => correctAudio.audio.id);
     const isCorrect = checkedAnswersID.toString() === correctAnswersID.toString();
     const newState = countScored(state, isCorrect, false);
 

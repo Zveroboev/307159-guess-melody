@@ -17,7 +17,7 @@ export default (state, level) => {
   };
 
   screen.onAnswerSelected = (evt) => {
-    const answerID = evt.currentTarget.dataset.id;
+    const answerID = parseInt(evt.currentTarget.dataset.id, 10);
     const correctAnswerID = level.answers.find((answer) => answer.isTrue).id;
     const isCorrect = answerID === correctAnswerID;
     const newState = countScored(state, isCorrect, false);
