@@ -1,4 +1,4 @@
-const getElementFromTemplate = (stringTemplate) => {
+export default (stringTemplate) => {
   const wrapper = document.createElement(`div`);
 
   wrapper.innerHTML = stringTemplate;
@@ -13,5 +13,3 @@ const getElementFromTemplate = (stringTemplate) => {
 
   return wrapper.firstElementChild;
 };
-
-export default getElementFromTemplate;
