@@ -49,177 +49,46 @@ const AUDIOS = [
   }
 ];
 
-export default {
-  'level-1': {
+export default [
+  {
     title: `Кто исполняет эту песню?`,
+    type: `artist`,
     audio: AUDIOS[0],
-    answers: [
-      {
-        id: 1,
-        src: ``,
-        name: `Пелагея`,
-        isTrue: false
-      },
-      {
-        id: 2,
-        src: ``,
-        name: `Kevin MacLeod`,
-        isTrue: true
-      },
-      {
-        id: 3,
-        src: ``,
-        name: `Audionautix`,
-        isTrue: false
-      }
-    ],
-    next: {
-      name: `level-2`,
-      type: `artist`
-    }
+    answers: [AUDIOS[0], AUDIOS[4], AUDIOS[2]]
   },
-  'level-2': {
+  {
     title: `Кто исполняет эту песню?`,
+    type: `artist`,
     audio: AUDIOS[1],
-    answers: [
-      {
-        id: 1,
-        src: ``,
-        name: `Jingle Punks`,
-        isTrue: true
-      },
-      {
-        id: 2,
-        src: ``,
-        name: `Riot`,
-        isTrue: false
-      },
-      {
-        id: 3,
-        src: ``,
-        name: `Gunnar Olsen`,
-        isTrue: false
-      }
-    ],
-    next: {
-      name: `level-3`,
-      type: `artist`
-    }
+    answers: [AUDIOS[5], AUDIOS[3], AUDIOS[1]]
   },
-  'level-3': {
+  {
     title: `Кто исполняет эту песню?`,
+    type: `artist`,
     audio: AUDIOS[2],
-    answers: [
-      {
-        id: 1,
-        src: ``,
-        name: `Егор Крид`,
-        isTrue: false
-      },
-      {
-        id: 2,
-        src: ``,
-        name: `Audionautix`,
-        isTrue: true
-      },
-      {
-        id: 3,
-        src: ``,
-        name: `Jingle Punks`,
-        isTrue: false
-      }
-    ],
-    next: {
-      name: `level-4`,
-      type: `artist`
-    }
+    answers: [AUDIOS[4], AUDIOS[0], AUDIOS[2]]
   },
-  'level-4': {
+  {
     title: `Кто исполняет эту песню?`,
+    type: `artist`,
     audio: AUDIOS[3],
-    answers: [
-      {
-        id: 1,
-        src: ``,
-        name: `Marvin Gaye`,
-        isTrue: false
-      },
-      {
-        id: 2,
-        src: ``,
-        name: `The Weeknd`,
-        isTrue: false
-      },
-      {
-        id: 3,
-        src: ``,
-        name: `Riot`,
-        isTrue: true
-      }
-    ],
-    next: {
-      name: `level-5`,
-      type: `artist`
-    }
+    answers: [AUDIOS[3], AUDIOS[1], AUDIOS[2]]
   },
-  'level-5': {
+  {
     title: `Кто исполняет эту песню?`,
+    type: `artist`,
     audio: AUDIOS[4],
-    answers: [
-      {
-        id: 1,
-        src: ``,
-        name: `Marvin Gaye`,
-        isTrue: false
-      },
-      {
-        id: 2,
-        src: ``,
-        name: `Jingle Punks`,
-        isTrue: true
-      },
-      {
-        id: 3,
-        src: ``,
-        name: `Ольга Бузова`,
-        isTrue: false
-      }
-    ],
-    next: {
-      name: `level-6`,
-      type: `artist`
-    }
+    answers: [AUDIOS[4], AUDIOS[3], AUDIOS[5]]
   },
-  'level-6': {
+  {
     title: `Кто исполняет эту песню?`,
+    type: `artist`,
     audio: AUDIOS[5],
-    answers: [
-      {
-        id: 1,
-        src: ``,
-        name: `Marvin Gaye`,
-        isTrue: false
-      },
-      {
-        id: 2,
-        src: ``,
-        name: `Gunnar Olsen`,
-        isTrue: true
-      },
-      {
-        id: 3,
-        src: ``,
-        name: `Daft Punk`,
-        isTrue: false
-      }
-    ],
-    next: {
-      name: `level-7`,
-      type: `genre`
-    }
+    answers: [AUDIOS[0], AUDIOS[5], AUDIOS[2]]
   },
-  'level-7': {
+  {
     title: `Выберите инди-рок треки`,
+    type: `genre`,
     audios: [
       {
         audio: AUDIOS[5],
@@ -237,14 +106,11 @@ export default {
         audio: AUDIOS[1],
         isTrue: true
       }
-    ],
-    next: {
-      name: `level-8`,
-      type: `genre`
-    }
+    ]
   },
-  'level-8': {
+  {
     title: `Выберите кантри треки`,
+    type: `genre`,
     audios: [
       {
         audio: AUDIOS[5],
@@ -262,14 +128,11 @@ export default {
         audio: AUDIOS[1],
         isTrue: false
       }
-    ],
-    next: {
-      name: `level-9`,
-      type: `genre`
-    }
+    ]
   },
-  'level-9': {
+  {
     title: `Выберите треки жанра электроника`,
+    type: `genre`,
     audios: [
       {
         audio: AUDIOS[5],
@@ -287,14 +150,11 @@ export default {
         audio: AUDIOS[1],
         isTrue: false
       }
-    ],
-    next: {
-      name: `level-10`,
-      type: `genre`
-    }
+    ]
   },
-  'level-10': {
+  {
     title: `Выберите поп треки`,
+    type: `genre`,
     audios: [
       {
         audio: AUDIOS[5],
@@ -312,14 +172,11 @@ export default {
         audio: AUDIOS[1],
         isTrue: false
       }
-    ],
-    next: {
-      name: `level-11`,
-      type: `genre`
-    }
+    ]
   },
-  'level-11': {
+  {
     title: `Выберите инди-рок треки`,
+    type: `genre`,
     audios: [
       {
         audio: AUDIOS[5],
@@ -338,6 +195,5 @@ export default {
         isTrue: false
       }
     ],
-    next: null
   }
-};
+];

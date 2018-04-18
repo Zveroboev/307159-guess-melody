@@ -1,4 +1,4 @@
-import AbstractView from './abstract-view';
+import AbstractView from '../abstract-view';
 import getLivesTemplate from './lives';
 import getTimeTemplate from './time';
 
@@ -8,9 +8,6 @@ export default class WelcomeView extends AbstractView {
 
     this.state = state;
     this.level = level;
-
-    this.answerBtn = null;
-    this.answers = [];
   }
 
   get template() {
@@ -47,13 +44,27 @@ export default class WelcomeView extends AbstractView {
     `;
   }
 
+  static onAnswerChange(answers, btn) {
+    const checkedAnswer = answers.find((answer) => answer.checked);
+
+    btn.disabled = !checkedAnswer;
+  }
+
+  onSubmit(evt, answers) {
+    evt.preventDefault();
+
+    const checkedAnswersID = answers.filter((answer) => answer.checked).map((checkedAnswer) => parseInt(checkedAnswer.dataset.id, 10));
+    const correctAnswersID = this.level.audios.filter((audio) => audio.isTrue).map((correctAudio) => correctAudio.audio.id);
+
+    this.handleAnswer(checkedAnswersID, correctAnswersID);
+  }
+
   bind() {
+    const answers = [...this._elem.querySelectorAll(`input[name="answer"]`)];
+    const answerBtn = this._elem.querySelector(`.genre-answer-send`);
     const form = this._elem.querySelector(`.genre`);
 
-    this.answers = [...this._elem.querySelectorAll(`input[name="answer"]`)];
-    this.answerBtn = this._elem.querySelector(`.genre-answer-send`);
-
-    form.addEventListener(`submit`, this.onSubmit);
-    form.addEventListener(`change`, this.onAnswerChange);
+    form.addEventListener(`change`, () => WelcomeView.onAnswerChange(answers, answerBtn));
+    form.addEventListener(`submit`, (evt) => this.onSubmit(evt, answers));
   }
 }

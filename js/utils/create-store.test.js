@@ -7,14 +7,14 @@ describe(`Класс хранилища состояния приложения`
       const store = new Store();
       const expected = {};
 
-      assert.deepEqual(store.getState(), expected);
+      assert.deepEqual(store.state, expected);
     });
 
     it(`должен установить в изначальное состояние переданный объект`, () => {
       const state = {lives: 3, scores: 0};
       const store = new Store(state);
 
-      assert.deepEqual(store.getState(), state);
+      assert.deepEqual(store.state, state);
     });
 
     it(`должен обновить состояние на переданный объект`, () => {
@@ -22,8 +22,8 @@ describe(`Класс хранилища состояния приложения`
       const store = new Store(state);
       const expected = {lives: 3, scores: 0, gameStatus: `playing`};
 
-      store.setState({lives: 3, scores: 0, gameStatus: `playing`});
-      assert.deepEqual(store.getState(), expected);
+      store.state = {lives: 3, scores: 0, gameStatus: `playing`};
+      assert.deepEqual(store.state, expected);
     });
 
     it(`должен обновить состояние, дополнив его новыми данными`, () => {
@@ -31,8 +31,8 @@ describe(`Класс хранилища состояния приложения`
       const store = new Store(state);
       const expected = {lives: 3, scores: 0, gameStatus: `playing`};
 
-      store.setState({gameStatus: `playing`});
-      assert.deepEqual(store.getState(), expected);
+      store.state = {gameStatus: `playing`};
+      assert.deepEqual(store.state, expected);
     });
 
     it(`должен обновить состояние, перезаписав измененные данные`, () => {
@@ -40,8 +40,8 @@ describe(`Класс хранилища состояния приложения`
       const store = new Store(state);
       const expected = {lives: 3, scores: 2, gameStatus: `playing`};
 
-      store.setState({gameStatus: `playing`, scores: 2});
-      assert.deepEqual(store.getState(), expected);
+      store.state = {gameStatus: `playing`, scores: 2};
+      assert.deepEqual(store.state, expected);
     });
   });
 
@@ -62,7 +62,7 @@ describe(`Класс хранилища состояния приложения`
       };
 
       store.subscribe(callback);
-      store.setState({});
+      store.state = {};
       assert.equal(test, `changed`);
     });
   });

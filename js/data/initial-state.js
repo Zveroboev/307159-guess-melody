@@ -4,8 +4,8 @@ export default {
   lastQuestions: ALL_LEVELS,
   lives: MAX_LIVES,
   time: MAX_TIME,
-  scores: 0,
-  level: `level-0`,
-  type: ``,
   gameStatus: `welcome`,
+  scores: 0,
+  level: 0,
+  type: `welcome`
 };
