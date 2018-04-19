@@ -1,5 +1,5 @@
 import {assert} from 'chai';
-import {getMinutes, getSeconds} from './time';
+import {getMinutes, getSeconds} from './header-view';
 
 describe(`Компонент общего таймера`, () => {
   describe(`Подсчет отображения кол-ва минут`, () => {

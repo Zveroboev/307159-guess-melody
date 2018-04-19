@@ -3,6 +3,7 @@ import countScored from '../../utils/count-scored';
 import LevelArtistView from './level-artist-view';
 import LevelGenreView from './level-genre-view';
 import Application from '../../Application';
+import HeaderView from './header-view';
 
 export default class GameScreen {
   constructor(store, levels) {
@@ -11,12 +12,17 @@ export default class GameScreen {
 
     this.artistLevel = new LevelArtistView(this.store.state, this.currentLevel);
     this.genreLevel = new LevelGenreView(this.store.state, this.currentLevel);
+    this.header = new HeaderView(this.store.state);
+
+    this.root = document.createElement(`div`);
+    this.root.appendChild(this.header.element);
+    this.root.appendChild(this.content.element);
 
     this.handleAnswer = this.handleAnswer.bind(this);
-    this.updateScreen = this.updateScreen.bind(this);
+    this.updateLevel = this.updateLevel.bind(this);
 
     this.store.subscribe(() => console.log(`---`, this.store.state));
-    this.store.subscribe(this.updateScreen);
+    this.store.subscribe(this.updateLevel);
   }
 
   get currentLevel() {
@@ -27,18 +33,25 @@ export default class GameScreen {
     return this.store.state.type === `artist` ? this.artistLevel : this.genreLevel;
   }
 
-  updateScreen() {
+  updateLevel() {
     const {gameStatus, type} = this.store.state;
 
     switch (gameStatus) {
       case `playing`:
+        let oldView = this.content;
+        let newView;
+
         if (type === `artist`) {
           this.artistLevel = new LevelArtistView(this.store.state, this.currentLevel);
+          newView = this.artistLevel;
         } else {
           this.genreLevel = new LevelGenreView(this.store.state, this.currentLevel);
+          newView = this.genreLevel;
         }
 
-        this.init();
+        this.bindHandlers(newView);
+        this.root.replaceChild(newView.element, oldView.element);
+        newView = oldView = null;
         break;
       case `lose`:
         Application.showLose();
@@ -56,9 +69,13 @@ export default class GameScreen {
     this.store.state = countScored(this.store.state, isCorrect, isFast);
   }
 
+  bindHandlers(elem) {
+    elem.handleAnswer = this.handleAnswer;
+  }
+
   init() {
     this.content.handleAnswer = this.handleAnswer;
 
-    renderScreen(this.content.element);
+    renderScreen(this.root);
   }
 }

@@ -1,6 +1,5 @@
 import AbstractView from '../abstract-view';
-import getLivesTemplate from './lives';
-import getTimeTemplate from './time';
+
 
 export default class WelcomeView extends AbstractView {
   constructor(state, level) {
@@ -13,11 +12,6 @@ export default class WelcomeView extends AbstractView {
   get template() {
     return `
       <section class="main main--level main--level-genre">
-        
-        ${getTimeTemplate(this.state)}
-        
-        ${getLivesTemplate(this.state)}
-      
         <div class="main-wrap">
           <h2 class="title">Выберите инди-рок треки</h2>
           <form class="genre">
