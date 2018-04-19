@@ -54,9 +54,11 @@ export default class GameScreen {
         newView = oldView = null;
         break;
       case `lose`:
+        this.stopTimer();
         Application.showLose();
         break;
       case `win`:
+        this.stopTimer();
         Application.showWin();
         break;
     }
@@ -73,8 +75,20 @@ export default class GameScreen {
     elem.handleAnswer = this.handleAnswer;
   }
 
+  startTimer() {
+
+  }
+
+  tick() {
+
+  }
+
+  stopTimer() {
+
+  }
+
   init() {
-    this.content.handleAnswer = this.handleAnswer;
+    this.bindHandlers(this.content);
 
     renderScreen(this.root);
   }
