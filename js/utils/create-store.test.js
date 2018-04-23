@@ -22,7 +22,7 @@ describe(`Класс хранилища состояния приложения`
       const store = new Store(state);
       const expected = {lives: 3, scores: 0, gameStatus: `playing`};
 
-      store.state = {lives: 3, scores: 0, gameStatus: `playing`};
+      store.setState({lives: 3, scores: 0, gameStatus: `playing`});
       assert.deepEqual(store.state, expected);
     });
 
@@ -31,7 +31,7 @@ describe(`Класс хранилища состояния приложения`
       const store = new Store(state);
       const expected = {lives: 3, scores: 0, gameStatus: `playing`};
 
-      store.state = {gameStatus: `playing`};
+      store.setState({gameStatus: `playing`});
       assert.deepEqual(store.state, expected);
     });
 
@@ -40,7 +40,7 @@ describe(`Класс хранилища состояния приложения`
       const store = new Store(state);
       const expected = {lives: 3, scores: 2, gameStatus: `playing`};
 
-      store.state = {gameStatus: `playing`, scores: 2};
+      store.setState({gameStatus: `playing`, scores: 2});
       assert.deepEqual(store.state, expected);
     });
   });
@@ -62,7 +62,7 @@ describe(`Класс хранилища состояния приложения`
       };
 
       store.subscribe(callback);
-      store.state = {};
+      store.setState({});
       assert.equal(test, `changed`);
     });
   });

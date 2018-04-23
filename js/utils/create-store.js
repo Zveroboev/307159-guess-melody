@@ -9,7 +9,7 @@ export default class Store {
     return this._state;
   }
 
-  set state(newState) {
+  setState(newState) {
     this._state = Object.assign({}, this._state, newState);
     this._callbacks.forEach((cb) => cb());
   }

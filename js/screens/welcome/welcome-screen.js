@@ -11,7 +11,7 @@ export default class GameScreen {
   }
 
   onGameStart() {
-    this.store.state = {gameStatus: `playing`, level: 1, type: `artist`};
+    this.store.setState({gameStatus: `playing`, level: 1, type: `artist`});
 
     Application.startGame();
   }

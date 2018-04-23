@@ -1,5 +1,6 @@
 import {assert} from 'chai';
 import Timer from './timer';
+import Store from './create-store';
 
 describe(`Таймер`, () => {
   it(`Должен подсчитать количество оставшегося времени после тика`, () => {
@@ -25,10 +26,28 @@ describe(`Таймер`, () => {
     assert.equal(timer.getTime(), null);
   });
 
-  it(`Должен начать тикать каждую секунду`, () => {
+  it(`должен выполнить обратный вызов при тике`, () => {
     const timer = new Timer(20);
+    let test = `original`;
+    const callback = () => {
+      test = `changed`;
+    };
 
-    timer.start();
+    timer.subscribe(callback);
+    timer.tick();
+    assert.equal(test, `changed`);
+  });
 
+  it(`Должен обновить состояние приложения при тике`, () => {
+    const store = new Store({time: 20});
+    const timer = new Timer(store.state.time);
+    const callback = () => store.setState({time: timer.getTime()});
+
+    timer.subscribe(callback);
+    timer.tick();
+    assert.equal(store.state.time, 19);
+    timer.tick();
+    timer.tick();
+    assert.equal(store.state.time, 17);
   });
 });
