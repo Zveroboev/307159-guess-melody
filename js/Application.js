@@ -1,5 +1,5 @@
 import WelcomeScreen from './screens/welcome/welcome-screen';
-import LoseScreen from './screens/lose/lose-screen';
+import LoseScreen from './screens/results/lose-screen';
 import GameScreen from './screens/game/game-screen';
 import levels from './data/levels';
 import store from './data/store';

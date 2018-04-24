@@ -7,9 +7,11 @@ export default class WelcomeView extends AbstractView {
 
     this.state = state;
     this.level = level;
+    console.log('---currentLevel', this.level);
   }
 
   get template() {
+    console.log('---this.level', this.level);
     return `
       <section class="main main--level main--level-genre">
         <div class="main-wrap">

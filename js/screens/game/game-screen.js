@@ -10,50 +10,42 @@ export default class GameScreen {
     this.store = store;
     this.levels = levels;
 
-    const {state} = this.store;
+    this.handleAnswer = this.handleAnswer.bind(this);
+    this.updateLevel = this.updateLevel.bind(this);
 
-    this.artistLevel = new LevelArtistView(state, this.currentLevel);
-    this.genreLevel = new LevelGenreView(state, this.currentLevel);
     this.header = new HeaderScreen(store);
+    this.content = this.getContent();
 
     this.root = document.createElement(`div`);
     this.root.appendChild(this.header.element);
     this.root.appendChild(this.content.element);
 
-    this.handleAnswer = this.handleAnswer.bind(this);
-    this.updateLevel = this.updateLevel.bind(this);
-
     this.store.subscribe(this.updateLevel);
     this.header.startTimer();
   }
 
-  get currentLevel() {
-    return this.levels[this.store.state.level - 1];
-  }
+  getContent() {
+    const {state} = this.store;
+    const levelIndex = state.level - 1;
 
-  get content() {
-    return this.store.state.type === `artist` ? this.artistLevel : this.genreLevel;
+    const content = state.type === `artist`
+      ? new LevelArtistView(state, this.levels[levelIndex])
+      : new LevelGenreView(state, this.levels[levelIndex]);
+
+    this.bindHandlers(content);
+
+    return content;
   }
 
   updateLevel() {
-    const {gameStatus, type} = this.store.state;
+    const {gameStatus} = this.store.state;
 
     switch (gameStatus) {
       case `playing`:
-        let oldView = this.content;
-        let newView;
+        const content = this.getContent();
 
-        if (type === `artist`) {
-          this.artistLevel = new LevelArtistView(this.store.state, this.currentLevel);
-          newView = this.artistLevel;
-        } else {
-          this.genreLevel = new LevelGenreView(this.store.state, this.currentLevel);
-          newView = this.genreLevel;
-        }
-
-        this.bindHandlers(newView);
-        this.root.replaceChild(newView.element, oldView.element);
-        newView = oldView = null;
+        this.root.replaceChild(content.element, this.content.element);
+        this.content = content;
         break;
       case `lose`:
         this.header.stopTimer();
@@ -71,6 +63,7 @@ export default class GameScreen {
     const isFast = false;
     const newState = countScored(this.store.state, isCorrect, isFast);
 
+    newState.type = this.levels[this.store.state.level].type;
     this.store.setState(newState);
 
     if (!isCorrect) {
@@ -82,10 +75,7 @@ export default class GameScreen {
     elem.handleAnswer = this.handleAnswer;
   }
 
-
   init() {
-    this.bindHandlers(this.content);
-
     renderScreen(this.root);
   }
 }

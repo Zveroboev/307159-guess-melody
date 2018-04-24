@@ -2,7 +2,7 @@ import getArtistLevelScreen from '../screens/game/level-artist-screen';
 import getGenreLevelScreen from '../screens/game/level-genre-screen';
 import getLoseLivesScreen from '../screens/lose/lose-lives-screen';
 import getWelcomeScreen from '../screens/welcome/welcome-screen';
-import getWinScreen from '../screens/win/win-screen';
+import getWinScreen from '../screens/results/win-screen';
 import renderScreen from './render-screen';
 import levels from '../data/levels';
 import store from '../data/store';
