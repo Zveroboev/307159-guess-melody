@@ -1,7 +1,7 @@
 export default class Timer {
-  constructor(initialTime = 0, onEnd = () => {}) {
+  constructor(initialTime = 0, afterEnd = () => {}) {
     this.time = initialTime;
-    this.onEnd = onEnd;
+    this.afterEnd = afterEnd;
     this._interval = null;
     this._callbacks = new Set();
 
@@ -14,7 +14,7 @@ export default class Timer {
 
     if (this.time <= 0) {
       this.stop();
-      this.onEnd();
+      this.afterEnd();
     }
   }
 

@@ -3,10 +3,7 @@ import countScored from '../../utils/count-scored';
 import LevelArtistView from './level-artist-view';
 import LevelGenreView from './level-genre-view';
 import Application from '../../Application';
-import HeaderView from './header-view';
-import Timer from '../../utils/timer';
-
-import {INITIAL_TIME} from '../../data/constants';
+import HeaderScreen from './header-screen';
 
 export default class GameScreen {
   constructor(store, levels) {
@@ -14,12 +11,10 @@ export default class GameScreen {
     this.levels = levels;
 
     const {state} = this.store;
-    const onTimerEnd = () => this.store.setState({gameStatus: `lose`});
 
     this.artistLevel = new LevelArtistView(state, this.currentLevel);
     this.genreLevel = new LevelGenreView(state, this.currentLevel);
-    this.timer = new Timer(INITIAL_TIME, onTimerEnd);
-    this.header = new HeaderView(this.timer.getTime(), state.lives);
+    this.header = new HeaderScreen(store);
 
     this.root = document.createElement(`div`);
     this.root.appendChild(this.header.element);
@@ -27,13 +22,9 @@ export default class GameScreen {
 
     this.handleAnswer = this.handleAnswer.bind(this);
     this.updateLevel = this.updateLevel.bind(this);
-    this.updateHeader = this.updateHeader.bind(this);
 
-    this.store.subscribe(() => console.log(`---`, state));
     this.store.subscribe(this.updateLevel);
-    this.store.subscribe(this.updateHeader);
-
-    this.timer.subscribe(this.updateHeader);
+    this.header.startTimer();
   }
 
   get currentLevel() {
@@ -65,28 +56,26 @@ export default class GameScreen {
         newView = oldView = null;
         break;
       case `lose`:
-        this.timer.stop();
+        this.header.stopTimer();
         Application.showLose();
         break;
       case `win`:
-        this.timer.stop();
+        this.header.stopTimer();
         Application.showWin();
         break;
     }
   }
 
-  updateHeader() {
-    const header = new HeaderView(this.timer.getTime(), this.store.state.lives);
-
-    this.root.replaceChild(header.element, this.header.element);
-    this.header = header;
-  }
-
   handleAnswer(currentID, correctID) {
     const isCorrect = currentID === correctID;
     const isFast = false;
+    const newState = countScored(this.store.state, isCorrect, isFast);
 
-    this.store.setState(countScored(this.store.state, isCorrect, isFast));
+    this.store.setState(newState);
+
+    if (!isCorrect) {
+      this.header.updateLives();
+    }
   }
 
   bindHandlers(elem) {
@@ -98,6 +87,5 @@ export default class GameScreen {
     this.bindHandlers(this.content);
 
     renderScreen(this.root);
-    this.timer.start();
   }
 }

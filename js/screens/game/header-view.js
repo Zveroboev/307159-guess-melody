@@ -16,6 +16,8 @@ export const getSeconds = (time) => {
   return seconds.length > 1 ? seconds : `0${seconds}`;
 };
 
+const wrongAnswer = `<img class="main-mistake" src="img/wrong-answer.png" width="35" height="49">`;
+
 export default class HeaderView extends AbstractView {
   constructor(time, lives) {
     super();
@@ -24,7 +26,7 @@ export default class HeaderView extends AbstractView {
     this.lives = lives;
   }
 
-  getTime() {
+  static getTime(time) {
     return `
       <svg xmlns="http://www.w3.org/2000/svg" class="timer" viewBox="0 0 780 780">
         <circle
@@ -35,19 +37,17 @@ export default class HeaderView extends AbstractView {
       </svg>
       
       <div class="timer-value" xmlns="http://www.w3.org/1999/xhtml">
-        <span class="timer-value-mins">${getMinutes(this.time)}</span><!--
+        <span class="timer-value-mins">${getMinutes(time)}</span><!--
         --><span class="timer-value-dots">:</span><!--
-        --><span class="timer-value-secs">${getSeconds(this.time)}</span>
+        --><span class="timer-value-secs">${getSeconds(time)}</span>
       </div>
     `;
   }
 
-  getLives() {
-    const wrongAnswer = `<img class="main-mistake" src="img/wrong-answer.png" width="35" height="49">`;
-
+  static getLives(lives) {
     return `
       <div class="main-mistakes">
-        ${wrongAnswer.repeat(MAX_LIVES - this.lives)}
+        ${wrongAnswer.repeat(MAX_LIVES - lives)}
       </div>
     `;
   }
@@ -55,9 +55,27 @@ export default class HeaderView extends AbstractView {
   get template() {
     return `
       <div>
-        ${this.getTime()}
-        ${this.getLives()}
+        ${HeaderView.getTime(this.time)}
+        ${HeaderView.getLives(this.lives)}
       </div>
     `;
+  }
+
+  bind() {
+    this.minContainer = this._elem.querySelector(`.timer-value-mins`);
+    this.secContainer = this._elem.querySelector(`.timer-value-secs`);
+    this.livesContainer = this._elem.querySelector(`.main-mistakes`);
+  }
+
+  updateTime(newTime) {
+    const min = getMinutes(newTime);
+    const sec = getSeconds(newTime);
+
+    this.minContainer.textContent = min;
+    this.secContainer.textContent = sec;
+  }
+
+  updateLives(lives) {
+    this.livesContainer.innerHTML = wrongAnswer.repeat(MAX_LIVES - lives);
   }
 }
