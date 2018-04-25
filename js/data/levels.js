@@ -95,7 +95,7 @@ export default [
         isTrue: false
       },
       {
-        audio: AUDIOS[4],
+        audio: AUDIOS[0],
         isTrue: false
       },
       {
@@ -117,7 +117,7 @@ export default [
         isTrue: false
       },
       {
-        audio: AUDIOS[4],
+        audio: AUDIOS[0],
         isTrue: false
       },
       {
@@ -139,7 +139,7 @@ export default [
         isTrue: false
       },
       {
-        audio: AUDIOS[4],
+        audio: AUDIOS[0],
         isTrue: false
       },
       {
@@ -161,7 +161,7 @@ export default [
         isTrue: false
       },
       {
-        audio: AUDIOS[4],
+        audio: AUDIOS[0],
         isTrue: false
       },
       {
@@ -183,7 +183,7 @@ export default [
         isTrue: false
       },
       {
-        audio: AUDIOS[4],
+        audio: AUDIOS[0],
         isTrue: false
       },
       {

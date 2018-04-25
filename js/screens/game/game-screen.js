@@ -4,6 +4,9 @@ import LevelArtistView from './level-artist-view';
 import LevelGenreView from './level-genre-view';
 import Application from '../../Application';
 import HeaderScreen from './header-screen';
+import Timer from '../../utils/timer';
+
+import {FAST_ANSWER_TIME} from '../../data/constants';
 
 export default class GameScreen {
   constructor(store, levels) {
@@ -15,6 +18,7 @@ export default class GameScreen {
 
     this.header = new HeaderScreen(store);
     this.content = this.getContent();
+    this.timer = new Timer(FAST_ANSWER_TIME);
 
     this.root = document.createElement(`div`);
     this.root.appendChild(this.header.element);
@@ -45,6 +49,8 @@ export default class GameScreen {
         const newContent = this.getContent();
 
         this.root.replaceChild(newContent.element, this.content.element);
+        this.timer = new Timer(FAST_ANSWER_TIME);
+        this.timer.start();
         this.content = newContent;
         break;
       case `lose`:
@@ -70,13 +76,14 @@ export default class GameScreen {
       isCorrect = currentID === correctID;
     }
 
-    const isFast = false;
+    const isFast = this.timer.getTime() > 0;
     const newState = countScored(this.store.state, isCorrect, isFast);
 
     if (newState.gameStatus === `playing`) {
       newState.type = this.levels[this.store.state.level].type;
     }
 
+    this.timer.stop();
     this.store.setState(newState);
 
     if (!isCorrect) {
@@ -89,6 +96,7 @@ export default class GameScreen {
   }
 
   init() {
+    this.timer.start();
     renderScreen(this.root);
   }
 }

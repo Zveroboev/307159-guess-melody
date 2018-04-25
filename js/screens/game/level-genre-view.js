@@ -49,6 +49,7 @@ export default class GenreView extends AbstractView {
 
     const audio = btn.previousElementSibling;
 
+    // TODO: дичь какая-то. Переделать.
     if (this.activeAudio === audio) {
       this.activeAudio.pause();
       this.activeAudioBtn.classList.remove(`player-control--pause`);
