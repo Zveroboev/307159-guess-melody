@@ -1,11 +1,12 @@
 import getResultInfo from '../../utils/get-result-info';
 import {MAX_LIVES} from '../../data/constants';
-import ReplayView from '../replay-view';
+import ReplayView from './replay-view';
 
 export default class WelcomeView extends ReplayView {
   constructor(state, allResults) {
-    super(state);
+    super();
 
+    this.state = state;
     this.allResults = allResults;
   }
 

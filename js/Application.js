@@ -1,10 +1,10 @@
 import WelcomeScreen from './screens/welcome/welcome-screen';
-import LoseScreen from './screens/results/lose-screen';
+import ResultScreen from './screens/results/result-screen';
 import GameScreen from './screens/game/game-screen';
 import levels from './data/levels';
 import store from './data/store';
 
-store.subscribe(() => console.log(`---`, store.state));
+store.subscribe(() => console.log(`---new state`, store.state));
 
 export default class Application {
 
@@ -21,12 +21,16 @@ export default class Application {
   }
 
   static showLose() {
-    const loseScreen = new LoseScreen(store);
+    const resultScreen = new ResultScreen(store);
 
-    loseScreen.init();
+    resultScreen.init();
   }
 
   static showWin() {
+    const allResults = [];
+    const resultScreen = new ResultScreen(store, allResults);
+
+    resultScreen.init();
 
   }
 }

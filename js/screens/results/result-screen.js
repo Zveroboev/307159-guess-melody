@@ -1,22 +1,27 @@
 import renderScreen from '../../utils/render-screen';
-import Application from '../../Application';
 import LoseLivesView from './lose-lives-view';
+import Application from '../../Application';
 import LoseTimeView from './lose-time-view';
-
-const MIN_LIVES = 1;
+import WinView from './win-view';
 
 export default class GameScreen {
-  constructor(store) {
+  constructor(store, allResults) {
     this.store = store;
+    this.allResults = allResults;
 
-    this.loseLives = new LoseLivesView();
-    this.loseTime = new LoseTimeView();
+    this.loseLivesResult = new LoseLivesView();
+    this.loseTimeResult = new LoseTimeView();
+    this.winResult = new WinView(this.store, this.allResults);
 
     this.onReplayClick = this.onReplayClick.bind(this);
   }
 
   get content() {
-    return this.store.lives < MIN_LIVES ? this.loseLives : this.loseTime;
+    const {state} = this.store;
+
+    return state.gameStatus === `win`
+      ? this.winResult
+      : state.lives > 0 ? this.loseTimeResult : this.loseLivesResult;
   }
 
   onReplayClick() {

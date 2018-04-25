@@ -42,10 +42,10 @@ export default class GameScreen {
 
     switch (gameStatus) {
       case `playing`:
-        const content = this.getContent();
+        const newContent = this.getContent();
 
-        this.root.replaceChild(content.element, this.content.element);
-        this.content = content;
+        this.root.replaceChild(newContent.element, this.content.element);
+        this.content = newContent;
         break;
       case `lose`:
         this.header.stopTimer();
@@ -55,15 +55,28 @@ export default class GameScreen {
         this.header.stopTimer();
         Application.showWin();
         break;
+      default:
+        this.header.stopTimer();
+        throw new Error(`Unknown game status`);
     }
   }
 
   handleAnswer(currentID, correctID) {
-    const isCorrect = currentID === correctID;
+    let isCorrect;
+
+    if (Array.isArray(currentID) && Array.isArray(correctID)) {
+      isCorrect = currentID.toString() === correctID.toString();
+    } else {
+      isCorrect = currentID === correctID;
+    }
+
     const isFast = false;
     const newState = countScored(this.store.state, isCorrect, isFast);
 
-    newState.type = this.levels[this.store.state.level].type;
+    if (newState.gameStatus === `playing`) {
+      newState.type = this.levels[this.store.state.level].type;
+    }
+
     this.store.setState(newState);
 
     if (!isCorrect) {

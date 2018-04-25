@@ -7,15 +7,13 @@ export default class WelcomeView extends AbstractView {
 
     this.state = state;
     this.level = level;
-    console.log('---currentLevel', this.level);
   }
 
   get template() {
-    console.log('---this.level', this.level);
     return `
       <section class="main main--level main--level-genre">
         <div class="main-wrap">
-          <h2 class="title">Выберите инди-рок треки</h2>
+          <h2 class="title">${this.level.title}</h2>
           <form class="genre">
             ${this.level.audios.map((it) => `
               <div class="genre-answer">

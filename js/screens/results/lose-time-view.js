@@ -1,6 +1,6 @@
-import AbstractView from '../abstract-view';
+import ReplayView from './replay-view';
 
-export default class WelcomeView extends AbstractView {
+export default class WelcomeView extends ReplayView {
   get template() {
     return `
       <section class="main main--result">
@@ -11,11 +11,5 @@ export default class WelcomeView extends AbstractView {
         <span role="button" tabindex="0" class="main-replay">Попробовать ещё раз</span>
       </section>
     `;
-  }
-
-  bind() {
-    const replayBtn = this._elem.querySelector(`.main-replay`);
-
-    replayBtn.addEventListener(`click`, this.onReplayClick);
   }
 }
