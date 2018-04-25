@@ -1,11 +1,11 @@
 import renderScreen from '../../utils/render-screen';
-import Application from '../../Application';
 import WelcomeView from './welcome-view';
 
 export default class GameScreen {
-  constructor(store) {
+  constructor(store, onStart) {
     this.store = store;
     this.view = new WelcomeView();
+    this.onStart = onStart;
 
     this.onGameStart = this.onGameStart.bind(this);
   }
@@ -13,7 +13,7 @@ export default class GameScreen {
   onGameStart() {
     this.store.setState({gameStatus: `playing`, level: 1, type: `artist`});
 
-    Application.startGame();
+    this.onStart();
   }
 
   init() {

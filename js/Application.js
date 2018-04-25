@@ -8,26 +8,31 @@ import store from './data/store';
 
 export default class Application {
   static showWelcome() {
-    const welcomeScreen = new WelcomeScreen(store);
+    const onGameStart = Application.startGame;
+    const welcomeScreen = new WelcomeScreen(store, onGameStart);
 
     welcomeScreen.init();
   }
 
   static startGame() {
-    const gameScreen = new GameScreen(store, levels);
+    const onWin = Application.showWin;
+    const onLose = Application.showLose;
+    const gameScreen = new GameScreen(store, levels, onWin, onLose);
 
     gameScreen.init();
   }
 
   static showLose() {
-    const resultScreen = new ResultScreen(store);
+    const onReplay = Application.showWelcome;
+    const resultScreen = new ResultScreen(store, null, onReplay);
 
     resultScreen.init();
   }
 
   static showWin() {
+    const onReplay = Application.showWelcome;
     const allResults = [];
-    const resultScreen = new ResultScreen(store, allResults);
+    const resultScreen = new ResultScreen(store, allResults, onReplay);
 
     resultScreen.init();
 

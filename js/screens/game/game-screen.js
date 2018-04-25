@@ -2,16 +2,17 @@ import renderScreen from '../../utils/render-screen';
 import countScored from '../../utils/count-scored';
 import LevelArtistView from './level-artist-view';
 import LevelGenreView from './level-genre-view';
-import Application from '../../Application';
 import HeaderScreen from './header-screen';
 import Timer from '../../utils/timer';
 
 import {FAST_ANSWER_TIME} from '../../data/constants';
 
 export default class GameScreen {
-  constructor(store, levels) {
+  constructor(store, levels, onWin, onLose) {
     this.store = store;
     this.levels = levels;
+    this.onWin = onWin;
+    this.onLose = onLose;
 
     this.handleAnswer = this.handleAnswer.bind(this);
     this.updateLevel = this.updateLevel.bind(this);
@@ -55,13 +56,13 @@ export default class GameScreen {
         break;
       case `lose`:
         this.header.stopTimer();
-        Application.showLose();
+        this.onLose();
         break;
       case `win`:
         this.header.stopTimer();
         this.store.unsubscribe(this.updateLevel);
         this.store.setState({time: this.header.time});
-        Application.showWin();
+        this.onWin();
         break;
       default:
         this.header.stopTimer();

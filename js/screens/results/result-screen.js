@@ -5,9 +5,10 @@ import LoseTimeView from './lose-time-view';
 import WinView from './win-view';
 
 export default class GameScreen {
-  constructor(store, allResults) {
+  constructor(store, allResults, onReplay) {
     this.store = store;
     this.allResults = allResults;
+    this.onReplay = onReplay;
 
     this.loseLivesResult = new LoseLivesView();
     this.loseTimeResult = new LoseTimeView();
@@ -31,7 +32,7 @@ export default class GameScreen {
 
   onReplayClick() {
     this.store.restart();
-    Application.showWelcome();
+    this.onReplay();
   }
 
   init() {
