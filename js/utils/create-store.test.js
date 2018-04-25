@@ -51,7 +51,6 @@ describe(`Класс хранилища состояния приложения`
       const callback = () => {};
 
       store.subscribe(callback);
-      console.log('---', store._callbacks);
       assert.include(store._callbacks, callback);
     });
 
