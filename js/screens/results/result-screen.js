@@ -11,7 +11,7 @@ export default class GameScreen {
 
     this.loseLivesResult = new LoseLivesView();
     this.loseTimeResult = new LoseTimeView();
-    this.winResult = new WinView(this.store, this.allResults);
+    this.winResult = new WinView(this.store.state, this.allResults);
 
     this.onReplayClick = this.onReplayClick.bind(this);
   }
@@ -19,9 +19,14 @@ export default class GameScreen {
   get content() {
     const {state} = this.store;
 
-    return state.gameStatus === `win`
-      ? this.winResult
-      : state.lives > 0 ? this.loseTimeResult : this.loseLivesResult;
+    switch (state.gameStatus) {
+      case `win`:
+        return this.winResult;
+      case `lose`:
+        return state.lives > 0 ? this.loseTimeResult : this.loseLivesResult;
+      default:
+        throw new Error(`Unknown game status`);
+    }
   }
 
   onReplayClick() {
