@@ -1,6 +1,5 @@
 import renderScreen from '../../utils/render-screen';
 import LoseLivesView from './lose-lives-view';
-import Application from '../../Application';
 import LoseTimeView from './lose-time-view';
 import WinView from './win-view';
 
