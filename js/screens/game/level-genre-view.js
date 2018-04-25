@@ -1,7 +1,7 @@
 import AbstractView from '../abstract-view';
 
 
-export default class WelcomeView extends AbstractView {
+export default class GenreView extends AbstractView {
   constructor(state, level) {
     super();
 
@@ -20,7 +20,7 @@ export default class WelcomeView extends AbstractView {
                 <div class="player-wrapper">
                   <div class="player">
                     <audio src="${it.audio.src}" preload></audio>
-                    <button class="player-control player-control--pause"></button>
+                    <button class="player-control"></button>
                     <div class="player-track">
                       <span class="player-status"></span>
                     </div>
@@ -44,6 +44,30 @@ export default class WelcomeView extends AbstractView {
     btn.disabled = !checkedAnswer;
   }
 
+  static onPlayClick(evt, btn) {
+    evt.preventDefault();
+
+    const audio = btn.previousElementSibling;
+
+    if (this.activeAudio === audio) {
+      this.activeAudio.pause();
+      this.activeAudioBtn.classList.remove(`player-control--pause`);
+      this.activeAudio = null;
+      this.activeAudioBtn = null;
+      return;
+    } else if (this.activeAudio) {
+      this.activeAudio.pause();
+      this.activeAudio.currentTime = 0;
+      this.activeAudioBtn.classList.remove(`player-control--pause`);
+    }
+
+    audio.play();
+    btn.classList.add(`player-control--pause`);
+
+    this.activeAudio = audio;
+    this.activeAudioBtn = btn;
+  }
+
   onSubmit(evt, answers) {
     evt.preventDefault();
 
@@ -55,10 +79,12 @@ export default class WelcomeView extends AbstractView {
 
   bind() {
     const answers = [...this._elem.querySelectorAll(`input[name="answer"]`)];
+    const playButtons = [...this._elem.querySelectorAll(`.player-control`)];
     const answerBtn = this._elem.querySelector(`.genre-answer-send`);
     const form = this._elem.querySelector(`.genre`);
 
-    form.addEventListener(`change`, () => WelcomeView.onAnswerChange(answers, answerBtn));
+    form.addEventListener(`change`, () => GenreView.onAnswerChange(answers, answerBtn));
     form.addEventListener(`submit`, (evt) => this.onSubmit(evt, answers));
+    playButtons.forEach((btn) => btn.addEventListener(`click`, (evt) => GenreView.onPlayClick(evt, evt.target)));
   }
 }

@@ -1,6 +1,6 @@
 import AbstractView from '../abstract-view';
 
-export default class WelcomeView extends AbstractView {
+export default class ArtistView extends AbstractView {
   constructor(state, level) {
     super();
 
@@ -63,7 +63,7 @@ export default class WelcomeView extends AbstractView {
     const playBtn = this._elem.querySelector(`.player-control`);
     const audio = this._elem.querySelector(`.player audio`);
 
-    playBtn.addEventListener(`click`, () => WelcomeView.onPlayClick(playBtn, audio));
+    playBtn.addEventListener(`click`, () => ArtistView.onPlayClick(playBtn, audio));
     answersBtn.forEach((btn) => btn.addEventListener(`click`, this.onAnswerClick));
   }
 }
