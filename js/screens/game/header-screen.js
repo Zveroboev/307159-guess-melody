@@ -35,6 +35,10 @@ export default class HeaderScreen {
     this.view.updateLives(this.store.state.lives);
   }
 
+  get time() {
+    return this.timer.getTime();
+  }
+
   get element() {
     return this.view.element;
   }

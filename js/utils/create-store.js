@@ -18,6 +18,10 @@ export default class Store {
     this._callbacks.add(callback);
   }
 
+  unsubscribe(callback) {
+    this._callbacks.delete(callback);
+  }
+
   restart() {
     this._state = this._initialState;
     this._callbacks.clear();

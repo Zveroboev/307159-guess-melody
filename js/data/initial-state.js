@@ -6,5 +6,6 @@ export default {
   gameStatus: `welcome`,
   scores: 0,
   level: 0,
+  fastAnswers: 0,
   type: `welcome`
 };

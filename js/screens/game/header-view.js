@@ -1,20 +1,7 @@
 import AbstractView from '../abstract-view';
+
+import {getMinutes, getSeconds} from '../../utils/get-time';
 import {MAX_LIVES} from '../../data/constants';
-
-const SEC_PER_MINUTE = 60;
-
-export const getMinutes = (time) => {
-  const minutes = Math.trunc(time / SEC_PER_MINUTE).toString();
-
-  return minutes.length > 1 ? minutes : `0${minutes}`;
-};
-
-export const getSeconds = (time) => {
-  const minutes = Math.trunc(time / SEC_PER_MINUTE);
-  const seconds = Math.trunc(time - minutes * SEC_PER_MINUTE).toString();
-
-  return seconds.length > 1 ? seconds : `0${seconds}`;
-};
 
 const wrongAnswer = `<img class="main-mistake" src="img/wrong-answer.png" width="35" height="49">`;
 
@@ -26,7 +13,7 @@ export default class HeaderView extends AbstractView {
     this.lives = lives;
   }
 
-  static getTime(time) {
+  static getTimeTemplate(time) {
     return `
       <svg xmlns="http://www.w3.org/2000/svg" class="timer" viewBox="0 0 780 780">
         <circle
@@ -44,7 +31,7 @@ export default class HeaderView extends AbstractView {
     `;
   }
 
-  static getLives(lives) {
+  static getLivesTemplate(lives) {
     return `
       <div class="main-mistakes">
         ${wrongAnswer.repeat(MAX_LIVES - lives)}
@@ -55,8 +42,8 @@ export default class HeaderView extends AbstractView {
   get template() {
     return `
       <div>
-        ${HeaderView.getTime(this.time)}
-        ${HeaderView.getLives(this.lives)}
+        ${HeaderView.getTimeTemplate(this.time)}
+        ${HeaderView.getLivesTemplate(this.lives)}
       </div>
     `;
   }

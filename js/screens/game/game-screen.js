@@ -59,6 +59,8 @@ export default class GameScreen {
         break;
       case `win`:
         this.header.stopTimer();
+        this.store.unsubscribe(this.updateLevel);
+        this.store.setState({time: this.header.time});
         Application.showWin();
         break;
       default:

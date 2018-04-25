@@ -1,7 +1,7 @@
 import {assert} from 'chai';
-import {getMinutes, getSeconds} from './header-view';
+import {getMinutes, getSeconds} from './get-time';
 
-describe(`Компонент общего таймера`, () => {
+describe(`Модуль получения оставшегося времени`, () => {
   describe(`Подсчет отображения кол-ва минут`, () => {
     it(`должен вернуть кол-во минут`, () => {
       const time = 300;

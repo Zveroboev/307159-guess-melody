@@ -1,7 +1,7 @@
 import {FAIL_SCORE} from '../data/constants';
 
 export default (prevState, isCorrect, isFast) => {
-  let {lastQuestions, lives, scores, gameStatus, level} = prevState;
+  let {lastQuestions, lives, scores, gameStatus, level, fastAnswers} = prevState;
 
   lastQuestions--;
   level++;
@@ -10,6 +10,7 @@ export default (prevState, isCorrect, isFast) => {
     scores++;
     if (isFast) {
       scores++;
+      fastAnswers++;
     }
   } else {
     scores -= FAIL_SCORE;
@@ -26,5 +27,5 @@ export default (prevState, isCorrect, isFast) => {
     level = 0;
   }
 
-  return {lastQuestions, lives, scores, gameStatus, level};
+  return {lastQuestions, lives, scores, gameStatus, level, fastAnswers};
 };

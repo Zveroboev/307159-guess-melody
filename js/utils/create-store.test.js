@@ -45,13 +45,14 @@ describe(`Класс хранилища состояния приложения`
     });
   });
 
-  describe(`Подписка на обновления`, () => {
+  describe(`Подписка на обновления store`, () => {
     it(`должен добавить функция в массив обратных вызовов`, () => {
       const store = new Store();
       const callback = () => {};
 
       store.subscribe(callback);
-      assert.include(store.callbacks, callback);
+      console.log('---', store._callbacks);
+      assert.include(store._callbacks, callback);
     });
 
     it(`должен вызвать callback после обновления состояния`, () => {
@@ -64,6 +65,18 @@ describe(`Класс хранилища состояния приложения`
       store.subscribe(callback);
       store.setState({});
       assert.equal(test, `changed`);
+    });
+  });
+
+  describe(`Отписка от обновлний store`, () => {
+    it(`должен должен убрать функцию из массива обратных вызовов`, () => {
+      const store = new Store();
+      const callback = () => {};
+
+      store.subscribe(callback);
+      store.unsubscribe(callback);
+
+      assert.notInclude(store._callbacks, callback);
     });
   });
 });
