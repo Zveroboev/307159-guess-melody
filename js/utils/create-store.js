@@ -1,19 +1,29 @@
 export default class Store {
   constructor(state = {}) {
-    this.state = state;
+    this._state = state;
+    this._initialState = state;
     this._callbacks = new Set();
   }
 
-  getState() {
-    return this.state;
+  get state() {
+    return this._state;
   }
 
   setState(newState) {
-    this.state = Object.assign({}, this.state, newState);
+    this._state = Object.assign({}, this._state, newState);
     this._callbacks.forEach((cb) => cb());
   }
 
   subscribe(callback) {
     this._callbacks.add(callback);
+  }
+
+  unsubscribe(callback) {
+    this._callbacks.delete(callback);
+  }
+
+  restart() {
+    this._state = this._initialState;
+    this._callbacks.clear();
   }
 }

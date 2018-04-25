@@ -1,8 +1,8 @@
-import getArtistLevelScreen from '../screens/level-artist-screen';
-import getGenreLevelScreen from '../screens/level-genre-screen';
-import getLoseLivesScreen from '../screens/lose-lives-screen';
-import getWelcomeScreen from '../screens/welcome-screen';
-import getWinScreen from '../screens/win-screen';
+import getArtistLevelScreen from '../screens/game/level-artist-screen';
+import getGenreLevelScreen from '../screens/game/level-genre-screen';
+import getLoseLivesScreen from '../screens/lose/lose-lives-screen';
+import getWelcomeScreen from '../screens/welcome/welcome-screen';
+import getWinScreen from '../screens/results/win-screen';
 import renderScreen from './render-screen';
 import levels from '../data/levels';
 import store from '../data/store';
@@ -16,7 +16,7 @@ export default () => {
 
   switch (state.gameStatus) {
     case `playing`:
-      screen = state.type === `artist` ? getArtistLevelScreen(state, level) : getGenreLevelScreen(state, level);
+      screen = level.type === `artist` ? getArtistLevelScreen(state, level) : getGenreLevelScreen(state, level);
       break;
     case `lose`:
       screen = getLoseLivesScreen(state);

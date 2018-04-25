@@ -1,6 +1,3 @@
-import renderNextScreen from './utils/render-next-screen';
-import store from './data/store';
+import Application from './Application';
 
-store.subscribe(renderNextScreen);
-
-renderNextScreen();
+Application.showWelcome();

@@ -9,12 +9,16 @@ describe(`Подсчет очков`, () => {
         lives: 3,
         scores: 0,
         gameStatus: `playing`,
+        level: 1,
+        fastAnswers: 0
       };
       const expectedState = {
         lastQuestions: 9,
         lives: 3,
         scores: 1,
         gameStatus: `playing`,
+        level: 2,
+        fastAnswers: 0
       };
 
       assert.deepEqual(countScored(prevState, true, false), expectedState);
@@ -26,12 +30,16 @@ describe(`Подсчет очков`, () => {
         lives: 3,
         scores: 2,
         gameStatus: `playing`,
+        level: 3,
+        fastAnswers: 2
       };
       const expectedState = {
         lastQuestions: 7,
         lives: 3,
         scores: 3,
         gameStatus: `playing`,
+        level: 4,
+        fastAnswers: 2
       };
 
       assert.deepEqual(countScored(prevState, true, false), expectedState);
@@ -43,12 +51,16 @@ describe(`Подсчет очков`, () => {
         lives: 3,
         scores: 0,
         gameStatus: `playing`,
+        level: 1,
+        fastAnswers: 0
       };
       const expectedState = {
         lastQuestions: 9,
         lives: 3,
         scores: 2,
         gameStatus: `playing`,
+        level: 2,
+        fastAnswers: 1
       };
 
       assert.deepEqual(countScored(prevState, true, true), expectedState);
@@ -62,12 +74,16 @@ describe(`Подсчет очков`, () => {
         lives: 3,
         scores: 2,
         gameStatus: `playing`,
+        level: 2,
+        fastAnswers: 0
       };
       const expectedState = {
         lastQuestions: 7,
         lives: 2,
         scores: 0,
         gameStatus: `playing`,
+        level: 3,
+        fastAnswers: 0
       };
 
       assert.deepEqual(countScored(prevState, false, false), expectedState);
@@ -79,12 +95,16 @@ describe(`Подсчет очков`, () => {
         lives: 2,
         scores: 5,
         gameStatus: `playing`,
+        level: 5,
+        fastAnswers: 3
       };
       const expectedState = {
         lastQuestions: 4,
         lives: 1,
         scores: 3,
         gameStatus: `playing`,
+        level: 6,
+        fastAnswers: 3
       };
 
       assert.deepEqual(countScored(prevState, false, true), expectedState);
@@ -98,12 +118,16 @@ describe(`Подсчет очков`, () => {
         lives: 3,
         scores: 12,
         gameStatus: `playing`,
+        level: 10,
+        fastAnswers: 3
       };
       const expectedState = {
         lastQuestions: 0,
         lives: 3,
         scores: 14,
         gameStatus: `win`,
+        level: 0,
+        fastAnswers: 4
       };
 
       assert.deepEqual(countScored(prevState, true, true), expectedState);
@@ -115,12 +139,16 @@ describe(`Подсчет очков`, () => {
         lives: 2,
         scores: 12,
         gameStatus: `playing`,
+        level: 10,
+        fastAnswers: 4
       };
       const expectedState = {
         lastQuestions: 0,
         lives: 1,
         scores: 10,
         gameStatus: `win`,
+        level: 0,
+        fastAnswers: 4
       };
 
       assert.deepEqual(countScored(prevState, false, true), expectedState);
@@ -132,12 +160,16 @@ describe(`Подсчет очков`, () => {
         lives: 1,
         scores: 5,
         gameStatus: `playing`,
+        level: 5,
+        fastAnswers: 2
       };
       const expectedState = {
         lastQuestions: 3,
         lives: 0,
         scores: 3,
         gameStatus: `lose`,
+        level: 0,
+        fastAnswers: 2
       };
 
       assert.deepEqual(countScored(prevState, false, true), expectedState);
@@ -149,12 +181,62 @@ describe(`Подсчет очков`, () => {
         lives: 1,
         scores: 5,
         gameStatus: `playing`,
+        level: 9,
+        fastAnswers: 2
       };
       const expectedState = {
         lastQuestions: 0,
         lives: 0,
         scores: 3,
         gameStatus: `lose`,
+        level: 0,
+        fastAnswers: 2
+      };
+
+      assert.deepEqual(countScored(prevState, false, true), expectedState);
+    });
+  });
+
+  describe(`Быстрые ответы`, () => {
+    it(`должен добавить быстрый ответ если игрок ответил правильно и быстро`, () => {
+      const prevState = {
+        lastQuestions: 10,
+        lives: 3,
+        scores: 0,
+        gameStatus: `playing`,
+        level: 1,
+        fastAnswers: 0
+      };
+
+      const expectedState = {
+        lastQuestions: 9,
+        lives: 3,
+        scores: 2,
+        gameStatus: `playing`,
+        level: 2,
+        fastAnswers: 1
+      };
+
+      assert.deepEqual(countScored(prevState, true, true), expectedState);
+    });
+
+    it(`должен не добавлять быстрый ответ если игрок ответил не правильно и быстро`, () => {
+      const prevState = {
+        lastQuestions: 10,
+        lives: 3,
+        scores: 0,
+        gameStatus: `playing`,
+        level: 1,
+        fastAnswers: 0
+      };
+
+      const expectedState = {
+        lastQuestions: 9,
+        lives: 2,
+        scores: -2,
+        gameStatus: `playing`,
+        level: 2,
+        fastAnswers: 0
       };
 
       assert.deepEqual(countScored(prevState, false, true), expectedState);

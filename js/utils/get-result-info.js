@@ -7,13 +7,13 @@ const winMessage = (position, sumPlayers, percent) => {
 
 export default (results, playerResult) => {
   const newResults = [...results];
-  const {scores, lives, time} = playerResult;
+  const {scores, lives, totalTime} = playerResult;
 
   if (lives < 0) {
     return FAIL_MESSAGE_LIVES;
   }
 
-  if (time <= 0) {
+  if (totalTime <= 0) {
     return FAIL_MESSAGE_TIME;
   }
 

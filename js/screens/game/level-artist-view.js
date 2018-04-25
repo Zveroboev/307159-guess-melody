@@ -1,26 +1,18 @@
-import AbstractView from './abstract-view';
-import getLivesTemplate from './lives';
-import getTimeTemplate from './time';
+import AbstractView from '../abstract-view';
 
-export default class WelcomeView extends AbstractView {
+export default class ArtistView extends AbstractView {
   constructor(state, level) {
     super();
 
     this.state = state;
     this.level = level;
 
-    this.playBtn = null;
-    this.audio = null;
+    this.onAnswerClick = this.onAnswerClick.bind(this);
   }
 
   get template() {
     return `
       <section class="main main--level main--level-artist">
-       
-        ${getTimeTemplate(this.state)}
-        
-        ${getLivesTemplate(this.state)}
-        
         <div class="main-wrap">
           <h2 class="title main-title">${this.level.title}</h2>
           <div class="player-wrapper">
@@ -37,26 +29,41 @@ export default class WelcomeView extends AbstractView {
               <div class="main-answer-wrapper">
                 <input class="main-answer-r" type="radio" id="answer-${it.id}" name="answer" value="val-${it.id}"/>
                 <label class="main-answer" for="answer-${it.id}" data-id="${it.id}">
-                  <img class="main-answer-preview" src="http://placehold.it/134x134"
+                  <img class="main-answer-preview" src="${it.image}"
                        alt="${it.name}" width="134" height="134">
                   ${it.name}
                 </label>
               </div>
-            `)}
+            `).join(` `)}
           </form>
         </div>
       </section>
     `;
   }
 
+  static onPlayClick(btn, audio) {
+    if (audio.paused) {
+      audio.play();
+      btn.classList.add(`player-control--pause`);
+    } else {
+      audio.pause();
+      btn.classList.remove(`player-control--pause`);
+    }
+  }
+
+  onAnswerClick(evt) {
+    const answerID = parseInt(evt.currentTarget.dataset.id, 10);
+    const correctAnswerID = this.level.audio.id;
+
+    this.handleAnswer(answerID, correctAnswerID);
+  }
+
   bind() {
     const answersBtn = [...this._elem.querySelectorAll(`.main-answer`)];
+    const playBtn = this._elem.querySelector(`.player-control`);
+    const audio = this._elem.querySelector(`.player audio`);
 
-    // Не уверен в корректности этого решения
-    this.playBtn = this._elem.querySelector(`.player-control`);
-    this.audio = this._elem.querySelector(`.player audio`);
-
-    this.playBtn.addEventListener(`click`, this.onPlayClick);
-    answersBtn.forEach((btn) => btn.addEventListener(`click`, this.onAnswerSelected));
+    playBtn.addEventListener(`click`, () => ArtistView.onPlayClick(playBtn, audio));
+    answersBtn.forEach((btn) => btn.addEventListener(`click`, this.onAnswerClick));
   }
 }
