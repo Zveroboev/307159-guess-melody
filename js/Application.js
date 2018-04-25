@@ -4,7 +4,7 @@ import GameScreen from './screens/game/game-screen';
 import levels from './data/levels';
 import store from './data/store';
 
-store.subscribe(() => console.log('---new State', store.state));
+// store.subscribe(() => console.log('---new State', store.state));
 
 export default class Application {
   static showWelcome() {
