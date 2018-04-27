@@ -14,6 +14,7 @@ export default class GameScreen {
 
     this.handleAnswer = this.handleAnswer.bind(this);
     this.updateLevel = this.updateLevel.bind(this);
+    this.setInitialState();
 
     this.header = new HeaderScreen(store);
     this.content = this.getContent();
@@ -27,9 +28,18 @@ export default class GameScreen {
     this.header.startTimer();
   }
 
+  setInitialState() {
+    const gameStatus = GameStatus.PLAYING;
+    const level = 1;
+    const type = this.store.state.levels[0].type;
+
+    this.store.setState({gameStatus, level, type});
+  }
+
   getContent() {
     const {state} = this.store;
     const levelIndex = state.level - 1;
+    debugger;
 
     const content = state.type === QuestionType.ARTIST
       ? new LevelArtistView(state, state.levels[levelIndex])

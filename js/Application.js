@@ -39,7 +39,7 @@ export default class Application {
   }
 
   static showResult() {
-    const onReplay = Application.showWelcome;
+    const onReplay = Application.startGame;
     const allResults = [];
     const resultScreen = new ResultScreen(store, allResults, onReplay);
 
