@@ -13,15 +13,26 @@ const updateState = (levels) => {
 
 export default class Application {
   static start() {
-    const onLoadReplay = Application.start;
-    const loadScreen = new LoadScreen();
-    const errorScreen = new ErrorScreen(onLoadReplay);
+    Application.showLoader();
 
-    loadScreen.init();
-    Loader.loadData()
+    Loader
+        .loadData()
         .then(updateState)
         .then(Application.showWelcome)
-        .catch(errorScreen.init());
+        .catch(Application.showError);
+  }
+
+  static showLoader() {
+    const loadScreen = new LoadScreen();
+
+    loadScreen.init();
+  }
+
+  static showError() {
+    const onLoadReplay = Application.start;
+    const errorScreen = new ErrorScreen(onLoadReplay);
+
+    errorScreen.init();
   }
 
   static showWelcome() {
