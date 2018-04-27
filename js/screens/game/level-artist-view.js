@@ -8,7 +8,6 @@ export default class ArtistView extends AbstractView {
     this.level = level;
 
     this.onAnswerClick = this.onAnswerClick.bind(this);
-    console.log('---', this.level);
   }
 
   get template() {
@@ -29,7 +28,7 @@ export default class ArtistView extends AbstractView {
             ${this.level.answers.map((answer, index) => `
               <div class="main-answer-wrapper">
                 <input class="main-answer-r" type="radio" id="answer-${index + 1}" name="answer" value="val-${index + 1}"/>
-                <label class="main-answer" for="answer-${index + 1}" data-id="${index + 1}">
+                <label class="main-answer" for="answer-${index + 1}" data-correct="${answer.isCorrect}">
                   <img class="main-answer-preview" src="${answer.image.url}"
                        alt="${answer.title}" width="134" height="134">
                   ${answer.title}
@@ -53,10 +52,9 @@ export default class ArtistView extends AbstractView {
   }
 
   onAnswerClick(evt) {
-    const answerID = parseInt(evt.currentTarget.dataset.id, 10);
-    const correctAnswerID = this.level.audio.id;
+    const isCorrect = evt.currentTarget.dataset.correct === `true`;
 
-    this.handleAnswer(answerID, correctAnswerID);
+    this.handleAnswer(isCorrect);
   }
 
   bind() {

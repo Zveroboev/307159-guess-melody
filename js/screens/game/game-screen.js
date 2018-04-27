@@ -70,15 +70,7 @@ export default class GameScreen {
     }
   }
 
-  handleAnswer(currentID, correctID) {
-    let isCorrect;
-
-    if (Array.isArray(currentID) && Array.isArray(correctID)) {
-      isCorrect = currentID.toString() === correctID.toString();
-    } else {
-      isCorrect = currentID === correctID;
-    }
-
+  handleAnswer(isCorrect) {
     const isFast = this.timer.getTime() > 0;
     const newState = countScored(this.store.state, isCorrect, isFast);
 

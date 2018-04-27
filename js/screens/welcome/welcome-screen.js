@@ -9,6 +9,7 @@ export default class GameScreen {
     this.view = new WelcomeView();
     this.levels = levels;
     this.onStart = onStart;
+    console.log('---', levels);
 
     this.onGameStart = this.onGameStart.bind(this);
   }
