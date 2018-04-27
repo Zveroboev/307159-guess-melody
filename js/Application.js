@@ -1,5 +1,7 @@
 import WelcomeScreen from './screens/welcome/welcome-screen';
 import ResultScreen from './screens/results/result-screen';
+import ErrorScreen from './screens/feedback/error-screen';
+import LoadScreen from './screens/feedback/load-screen';
 import GameScreen from './screens/game/game-screen';
 import store from './data/store';
 import Loader from './loader';
@@ -8,8 +10,14 @@ import Loader from './loader';
 
 export default class Application {
   static start() {
+    const onLoadReplay = Application.start;
+    const loadScreen = new LoadScreen();
+    const errorScreen = new ErrorScreen(onLoadReplay);
+
+    loadScreen.init();
     Loader.loadData()
-        .then(Application.showWelcome);
+        .then(Application.showWelcome)
+        .catch(errorScreen.init());
   }
 
   static showWelcome(levels) {

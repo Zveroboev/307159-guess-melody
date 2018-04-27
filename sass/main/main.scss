@@ -46,6 +46,7 @@
   margin: 0 0 1em;
 }
 
+@import "--preload/main--preload.scss";
 @import "--level/main--level";
 @import "--result/main--result";
 @import "--welcome/main--welcome";

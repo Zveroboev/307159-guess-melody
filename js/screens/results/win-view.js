@@ -1,7 +1,7 @@
 import {getMinutes, getSeconds} from '../../utils/get-time';
 import getResultInfo from '../../utils/get-result-info';
 import {MAX_LIVES, INITIAL_TIME} from '../../data/constants';
-import ReplayView from './replay-view';
+import ReplayView from '../replay-view';
 
 export default class WelcomeView extends ReplayView {
   constructor(state, allResults) {
