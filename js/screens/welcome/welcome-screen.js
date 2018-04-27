@@ -4,10 +4,9 @@ import WelcomeView from './welcome-view';
 import {GameStatus} from '../../data/constants';
 
 export default class GameScreen {
-  constructor(store, levels, onStart) {
+  constructor(store, onStart) {
     this.store = store;
     this.view = new WelcomeView();
-    this.levels = levels;
     this.onStart = onStart;
 
     this.onGameStart = this.onGameStart.bind(this);
@@ -16,10 +15,10 @@ export default class GameScreen {
   onGameStart() {
     const gameStatus = GameStatus.PLAYING;
     const level = 1;
-    const type = this.levels[0].type;
+    const type = this.store.state.levels[0].type;
 
     this.store.setState({gameStatus, level, type});
-    this.onStart(this.levels);
+    this.onStart();
   }
 
   init() {

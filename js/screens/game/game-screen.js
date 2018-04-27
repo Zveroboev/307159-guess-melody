@@ -8,11 +8,9 @@ import Timer from '../../utils/timer';
 import {FAST_ANSWER_TIME, QuestionType, GameStatus} from '../../data/constants';
 
 export default class GameScreen {
-  constructor(store, levels, onWin, onLose) {
+  constructor(store, onEnd) {
     this.store = store;
-    this.levels = levels;
-    this.onWin = onWin;
-    this.onLose = onLose;
+    this.onEnd = onEnd;
 
     this.handleAnswer = this.handleAnswer.bind(this);
     this.updateLevel = this.updateLevel.bind(this);
@@ -34,8 +32,8 @@ export default class GameScreen {
     const levelIndex = state.level - 1;
 
     const content = state.type === QuestionType.ARTIST
-      ? new LevelArtistView(state, this.levels[levelIndex])
-      : new LevelGenreView(state, this.levels[levelIndex]);
+      ? new LevelArtistView(state, state.levels[levelIndex])
+      : new LevelGenreView(state, state.levels[levelIndex]);
 
     this.bindHandlers(content);
 
@@ -55,14 +53,11 @@ export default class GameScreen {
         this.content = newContent;
         break;
       case GameStatus.LOSE:
-        this.header.stopTimer();
-        this.onLose();
-        break;
       case GameStatus.WIN:
         this.header.stopTimer();
         this.store.unsubscribe(this.updateLevel);
         this.store.setState({time: this.header.time});
-        this.onWin();
+        this.onEnd();
         break;
       default:
         this.header.stopTimer();
@@ -71,11 +66,12 @@ export default class GameScreen {
   }
 
   handleAnswer(isCorrect) {
+    const {state} = this.store;
     const isFast = this.timer.getTime() > 0;
     const newState = countScored(this.store.state, isCorrect, isFast);
 
     if (newState.gameStatus === GameStatus.PLAYING) {
-      newState.type = this.levels[this.store.state.level].type;
+      newState.type = state.levels[state.level].type;
     }
 
     this.timer.stop();

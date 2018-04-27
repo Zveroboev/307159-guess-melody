@@ -6,7 +6,10 @@ import GameScreen from './screens/game/game-screen';
 import store from './data/store';
 import Loader from './loader';
 
-// store.subscribe(() => console.log('---new State', store.state));
+const updateState = (levels) => {
+  store.setState({levels, lastQuestions: levels.length});
+  return levels;
+};
 
 export default class Application {
   static start() {
@@ -16,38 +19,30 @@ export default class Application {
 
     loadScreen.init();
     Loader.loadData()
+        .then(updateState)
         .then(Application.showWelcome)
         .catch(errorScreen.init());
   }
 
-  static showWelcome(levels) {
+  static showWelcome() {
     const onGameStart = Application.startGame;
-    const welcomeScreen = new WelcomeScreen(store, levels, onGameStart);
+    const welcomeScreen = new WelcomeScreen(store, onGameStart);
 
     welcomeScreen.init();
   }
 
-  static startGame(levels) {
-    const onWin = Application.showWin;
-    const onLose = Application.showLose;
-    const gameScreen = new GameScreen(store, levels, onWin, onLose);
+  static startGame() {
+    const onEnd = Application.showResult;
+    const gameScreen = new GameScreen(store, onEnd);
 
     gameScreen.init();
   }
 
-  static showLose() {
-    const onReplay = Application.showWelcome;
-    const resultScreen = new ResultScreen(store, null, onReplay);
-
-    resultScreen.init();
-  }
-
-  static showWin() {
+  static showResult() {
     const onReplay = Application.showWelcome;
     const allResults = [];
     const resultScreen = new ResultScreen(store, allResults, onReplay);
 
     resultScreen.init();
-
   }
 }

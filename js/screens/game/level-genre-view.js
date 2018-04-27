@@ -74,7 +74,6 @@ export default class GenreView extends AbstractView {
 
     const checkedAnswersGenre = answers.filter((answer) => answer.checked).map((checkedAnswer) => checkedAnswer.dataset.genre);
     const isCorrect = checkedAnswersGenre.every((genre) => genre === this.level.genre);
-    console.log('---', isCorrect);
 
     this.handleAnswer(isCorrect);
   }
