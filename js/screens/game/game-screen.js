@@ -39,7 +39,6 @@ export default class GameScreen {
   getContent() {
     const {state} = this.store;
     const levelIndex = state.level - 1;
-    debugger;
 
     const content = state.type === QuestionType.ARTIST
       ? new LevelArtistView(state, state.levels[levelIndex])
