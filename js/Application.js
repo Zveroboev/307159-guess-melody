@@ -1,20 +1,25 @@
 import WelcomeScreen from './screens/welcome/welcome-screen';
 import ResultScreen from './screens/results/result-screen';
 import GameScreen from './screens/game/game-screen';
-import levels from './data/levels';
 import store from './data/store';
+import Loader from './loader';
 
 // store.subscribe(() => console.log('---new State', store.state));
 
 export default class Application {
-  static showWelcome() {
+  static start() {
+    Loader.loadData()
+        .then(Application.showWelcome);
+  }
+
+  static showWelcome(levels) {
     const onGameStart = Application.startGame;
-    const welcomeScreen = new WelcomeScreen(store, onGameStart);
+    const welcomeScreen = new WelcomeScreen(store, levels, onGameStart);
 
     welcomeScreen.init();
   }
 
-  static startGame() {
+  static startGame(levels) {
     const onWin = Application.showWin;
     const onLose = Application.showLose;
     const gameScreen = new GameScreen(store, levels, onWin, onLose);

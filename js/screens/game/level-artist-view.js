@@ -8,16 +8,17 @@ export default class ArtistView extends AbstractView {
     this.level = level;
 
     this.onAnswerClick = this.onAnswerClick.bind(this);
+    console.log('---', this.level);
   }
 
   get template() {
     return `
       <section class="main main--level main--level-artist">
         <div class="main-wrap">
-          <h2 class="title main-title">${this.level.title}</h2>
+          <h2 class="title main-title">${this.level.question}</h2>
           <div class="player-wrapper">
             <div class="player">
-              <audio src="${this.level.audio.src}" preload></audio>
+              <audio src="${this.level.src}" preload></audio>
               <button class="player-control"></button>
               <div class="player-track">
                 <span class="player-status"></span>
@@ -25,13 +26,13 @@ export default class ArtistView extends AbstractView {
             </div>
           </div>
           <form class="main-list">
-            ${this.level.answers.map((it) => `
+            ${this.level.answers.map((answer, index) => `
               <div class="main-answer-wrapper">
-                <input class="main-answer-r" type="radio" id="answer-${it.id}" name="answer" value="val-${it.id}"/>
-                <label class="main-answer" for="answer-${it.id}" data-id="${it.id}">
-                  <img class="main-answer-preview" src="${it.image}"
-                       alt="${it.name}" width="134" height="134">
-                  ${it.name}
+                <input class="main-answer-r" type="radio" id="answer-${index + 1}" name="answer" value="val-${index + 1}"/>
+                <label class="main-answer" for="answer-${index + 1}" data-id="${index + 1}">
+                  <img class="main-answer-preview" src="${answer.image.url}"
+                       alt="${answer.title}" width="134" height="134">
+                  ${answer.title}
                 </label>
               </div>
             `).join(` `)}

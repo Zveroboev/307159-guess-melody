@@ -7,27 +7,28 @@ export default class GenreView extends AbstractView {
 
     this.state = state;
     this.level = level;
+    console.log('---', level);
   }
 
   get template() {
     return `
       <section class="main main--level main--level-genre">
         <div class="main-wrap">
-          <h2 class="title">${this.level.title}</h2>
+          <h2 class="title">${this.level.question}</h2>
           <form class="genre">
-            ${this.level.audios.map((it) => `
+            ${this.level.answers.map((answer, index) => `
               <div class="genre-answer">
                 <div class="player-wrapper">
                   <div class="player">
-                    <audio src="${it.audio.src}" preload></audio>
+                    <audio src="${answer.src}" preload></audio>
                     <button class="player-control"></button>
                     <div class="player-track">
                       <span class="player-status"></span>
                     </div>
                   </div>
                 </div>
-                <input type="checkbox" name="answer" value="val-${it.audio.id}" id="answer-${it.audio.id}" data-id="${it.audio.id}">
-                <label class="genre-answer-check" for="answer-${it.audio.id}"></label>
+                <input type="checkbox" name="answer" value="val-${index + 1}" id="answer-${index + 1}" data-id="${index + 1}">
+                <label class="genre-answer-check" for="answer-${index + 1}"></label>
               </div>
             `).join(` `)}
           
