@@ -1,0 +1,13 @@
+.main--preload {
+
+  .title {
+    margin-bottom: 250px;
+  }
+
+  .main__preloader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
