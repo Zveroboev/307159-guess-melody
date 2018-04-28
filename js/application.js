@@ -19,6 +19,7 @@ export default class Application {
         .loadData()
         .then(updateState)
         .then(Loader.loadAudios)
+        .then((audios) => store.setState({audios}))
         .then(Application.showWelcome)
         .catch(Application.showError);
   }

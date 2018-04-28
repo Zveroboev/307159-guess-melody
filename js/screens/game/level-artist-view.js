@@ -17,7 +17,6 @@ export default class ArtistView extends AbstractView {
           <h2 class="title main-title">${this.level.question}</h2>
           <div class="player-wrapper">
             <div class="player">
-              <audio src="${this.level.src}" preload></audio>
               <button class="player-control"></button>
               <div class="player-track">
                 <span class="player-status"></span>
@@ -60,7 +59,7 @@ export default class ArtistView extends AbstractView {
   bind() {
     const answersBtn = [...this._elem.querySelectorAll(`.main-answer`)];
     const playBtn = this._elem.querySelector(`.player-control`);
-    const audio = this._elem.querySelector(`.player audio`);
+    const audio = this.state.audios.find((audio) => audio.src === this.level.src);
 
     playBtn.addEventListener(`click`, () => ArtistView.onPlayClick(playBtn, audio));
     answersBtn.forEach((btn) => btn.addEventListener(`click`, this.onAnswerClick));

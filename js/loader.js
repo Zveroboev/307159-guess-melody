@@ -28,8 +28,6 @@ const getAudio = (src) => new Promise((resolve, reject) => {
   audio.src = src;
   audio.oncanplaythrough = (evt) => resolve(evt.path[0]);
   audio.onerror = () => reject();
-
-  return audio;
 });
 
 export default class Loader {
@@ -40,7 +38,6 @@ export default class Loader {
   static loadAudios(gameData) {
     const sources = deepSearch(gameData, `src`);
     const audios = sources.map((source) => getAudio(source));
-    console.log('---', audios);
 
     return Promise.all(audios);
   }
