@@ -1,6 +1,6 @@
 import AbstractView from '../abstract-view';
 
-export default class WelcomeScreen extends AbstractView {
+export default class WelcomeView extends AbstractView {
   get template() {
     return `
       <section class="main main--welcome">

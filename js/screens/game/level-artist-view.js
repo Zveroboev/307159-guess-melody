@@ -59,7 +59,7 @@ export default class ArtistView extends AbstractView {
   bind() {
     const answersBtn = [...this._elem.querySelectorAll(`.main-answer`)];
     const playBtn = this._elem.querySelector(`.player-control`);
-    const audio = this.state.audios.find((audio) => audio.src === this.level.src);
+    const audio = this.state.audios.find((it) => it.src === this.level.src);
 
     playBtn.addEventListener(`click`, () => ArtistView.onPlayClick(playBtn, audio));
     answersBtn.forEach((btn) => btn.addEventListener(`click`, this.onAnswerClick));
