@@ -1,19 +1,18 @@
 import AbstractView from '../abstract-view';
 
-import {getMinutes, getSeconds} from '../../utils/get-time';
 import {MAX_LIVES} from '../../data/constants';
 
 const wrongAnswer = `<img class="main-mistake" src="img/wrong-answer.png" width="35" height="49">`;
 
 export default class HeaderView extends AbstractView {
-  constructor(time, lives) {
+  constructor(timer, lives) {
     super();
 
-    this.time = time;
+    this.timer = timer;
     this.lives = lives;
   }
 
-  static getTimeTemplate(time) {
+  getTimeTemplate() {
     return `
       <svg xmlns="http://www.w3.org/2000/svg" class="timer" viewBox="0 0 780 780">
         <circle
@@ -24,17 +23,17 @@ export default class HeaderView extends AbstractView {
       </svg>
       
       <div class="timer-value" xmlns="http://www.w3.org/1999/xhtml">
-        <span class="timer-value-mins">${getMinutes(time)}</span><!--
+        <span class="timer-value-mins">${this.timer.minutes}</span><!--
         --><span class="timer-value-dots">:</span><!--
-        --><span class="timer-value-secs">${getSeconds(time)}</span>
+        --><span class="timer-value-secs">${this.timer.seconds}</span>
       </div>
     `;
   }
 
-  static getLivesTemplate(lives) {
+  getLivesTemplate() {
     return `
       <div class="main-mistakes">
-        ${wrongAnswer.repeat(MAX_LIVES - lives)}
+        ${wrongAnswer.repeat(MAX_LIVES - this.lives)}
       </div>
     `;
   }
@@ -42,8 +41,8 @@ export default class HeaderView extends AbstractView {
   get template() {
     return `
       <div>
-        ${HeaderView.getTimeTemplate(this.time)}
-        ${HeaderView.getLivesTemplate(this.lives)}
+        ${this.getTimeTemplate()}
+        ${this.getLivesTemplate()}
       </div>
     `;
   }
@@ -54,10 +53,7 @@ export default class HeaderView extends AbstractView {
     this.livesContainer = this._elem.querySelector(`.main-mistakes`);
   }
 
-  updateTime(newTime) {
-    const min = getMinutes(newTime);
-    const sec = getSeconds(newTime);
-
+  updateTime(min, sec) {
     this.minContainer.textContent = min;
     this.secContainer.textContent = sec;
   }
