@@ -17,6 +17,9 @@
 .main-wrap {
   position: relative;
   z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .logo {
@@ -46,6 +49,7 @@
   margin: 0 0 1em;
 }
 
+@import "--preload/main--preload.scss";
 @import "--level/main--level";
 @import "--result/main--result";
 @import "--welcome/main--welcome";

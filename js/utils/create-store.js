@@ -1,7 +1,6 @@
 export default class Store {
   constructor(state = {}) {
     this._state = state;
-    this._initialState = state;
     this._callbacks = new Set();
   }
 
@@ -22,8 +21,7 @@ export default class Store {
     this._callbacks.delete(callback);
   }
 
-  restart() {
-    this._state = this._initialState;
+  unsubscribeAll() {
     this._callbacks.clear();
   }
 }

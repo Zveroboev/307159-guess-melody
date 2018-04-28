@@ -6,18 +6,10 @@ export default class GameScreen {
     this.store = store;
     this.view = new WelcomeView();
     this.onStart = onStart;
-
-    this.onGameStart = this.onGameStart.bind(this);
-  }
-
-  onGameStart() {
-    this.store.setState({gameStatus: `playing`, level: 1, type: `artist`});
-
-    this.onStart();
   }
 
   init() {
-    this.view.onGameStart = this.onGameStart;
+    this.view.onGameStart = this.onStart;
 
     renderScreen(this.view.element);
   }

@@ -1,4 +1,4 @@
-import ReplayView from './replay-view';
+import ReplayView from '../replay-view';
 
 export default class WelcomeView extends ReplayView {
   get template() {
