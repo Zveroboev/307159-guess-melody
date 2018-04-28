@@ -18,6 +18,7 @@ export default class Application {
     Loader
         .loadData()
         .then(updateState)
+        .then(Loader.loadAudios)
         .then(Application.showWelcome)
         .catch(Application.showError);
   }
