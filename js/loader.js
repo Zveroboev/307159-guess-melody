@@ -8,18 +8,24 @@ const checkStatus = (response) => {
   }
 };
 
-export const deepSearch = (object, key) => {
-  let result = [];
-
-  Object.keys(object).forEach((objectKey) => {
-    if (objectKey === key) {
-      result.push(object[objectKey]);
-    } else if (typeof object[objectKey] === `object` && object[objectKey] !== null) {
-      result.push(...deepSearch(object[objectKey], key));
+const findElem = (nestedObject, correctKey, results) => {
+  for (let key in nestedObject) {
+    if (nestedObject.hasOwnProperty(key)) {
+      if (key === correctKey) {
+        results.push(nestedObject[key]);
+      } else if (typeof nestedObject[key] === `object` && nestedObject[key] !== null) {
+        findElem(nestedObject[key], correctKey, results);
+      }
     }
-  });
+  }
 
-  return result;
+  return results;
+};
+
+export const deepFilter = (object, key) => {
+  const result = [];
+
+  return findElem(object, key, result);
 };
 
 const getAudio = (src) => new Promise((resolve, reject) => {
@@ -36,8 +42,9 @@ export default class Loader {
   }
 
   static loadAudios(gameData) {
-    const sources = deepSearch(gameData, `src`);
+    const sources = deepFilter(gameData, `src`);
     const audios = sources.map((source) => getAudio(source));
+    console.log(`---`, sources);
 
     return Promise.all(audios);
   }
