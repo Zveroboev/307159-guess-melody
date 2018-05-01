@@ -15,7 +15,7 @@ export default class WelcomeView extends ReplayView {
     const {scores, lives, fastAnswers, time} = this.state;
     const totalTime = INITIAL_TIME - time;
     const timer = new Timer(totalTime);
-    const winMessage = getResultInfo(this.allResults, {scores, lives, totalTime});
+    const winMessage = getResultInfo(this.allResults, {scores, lives, time: totalTime});
 
     return `
       <section class="main main--result">

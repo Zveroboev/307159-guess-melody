@@ -1,24 +1,24 @@
 import {assert} from 'chai';
-import {deepFilter} from './loader';
+import getValuesByKey from './get-values-by-key';
 
 describe(`Глубокий поиск по объекту`, () => {
   it(`должен вернуть пустой массив, если в объекте нет нужного ключа`, () => {
     const obj = {string: `test`, value: 1, itNull: null};
 
-    assert.deepEqual(deepFilter(obj, `src`), []);
+    assert.deepEqual(getValuesByKey(obj, `src`), []);
   });
 
   it(`должен вернуть массив с ключом, если в объекте есть нужный ключ`, () => {
     const obj = {src: `test`, value: 1, itNull: null};
 
-    assert.deepEqual(deepFilter(obj, `src`), [`test`]);
+    assert.deepEqual(getValuesByKey(obj, `src`), [`test`]);
   });
 
   it(`должен вернуть массив с ключом, если ключ находится во вложенном объекте`, () => {
     const nestedObj = {src: `test`};
     const obj = {value: 1, itNull: null, nestedObj};
 
-    assert.deepEqual(deepFilter(obj, `src`), [`test`]);
+    assert.deepEqual(getValuesByKey(obj, `src`), [`test`]);
   });
 
   it(`должен вернуть массив с ключами, если несколько ключей во вложенныъ объектах`, () => {
@@ -26,6 +26,6 @@ describe(`Глубокий поиск по объекту`, () => {
     const secondNestedObject = {src: `4`};
     const obj = {src: `1`, itNull: null, firstNestedObj, secondNestedObject};
 
-    assert.deepEqual(deepFilter(obj, `src`), [`1`, `2`, `3`, `4`]);
+    assert.deepEqual(getValuesByKey(obj, `src`), [`1`, `2`, `3`, `4`]);
   });
 });

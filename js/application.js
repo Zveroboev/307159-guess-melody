@@ -6,6 +6,8 @@ import GameScreen from './screens/game/game-screen';
 import store from './data/store';
 import Loader from './loader';
 
+import {GameStatus, INITIAL_TIME} from './data/constants';
+
 const updateState = (levels) => {
   store.setState({levels, lastQuestions: levels.length});
   return levels;
@@ -52,10 +54,24 @@ export default class Application {
   }
 
   static showResult() {
+    const {time, scores, lives, gameStatus} = store.state;
     const onReplay = Application.startGame;
-    const allResults = [];
-    const resultScreen = new ResultScreen(store, allResults, onReplay);
+    const playerResults = {time: INITIAL_TIME - time, scores, lives};
 
-    resultScreen.init();
+    switch (gameStatus) {
+      case GameStatus.LOSE:
+        new ResultScreen(store, null, onReplay).init();
+        break;
+      case GameStatus.WIN:
+        Application.showLoader();
+        Loader
+            .saveResults(playerResults)
+            .then(() => Loader.loadResults())
+            .then((results) => new ResultScreen(store, results, onReplay).init())
+            .catch(Application.showError);
+        break;
+      default:
+        throw new Error(`Unknown game status`);
+    }
   }
 }
