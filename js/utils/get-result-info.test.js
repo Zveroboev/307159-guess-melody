@@ -1,59 +1,107 @@
 // Из-за вложенности describe-describe-it, ESLint ругается на один вложенный коллбек, думая, что он 4 по вложенности
 /* eslint-disable max-nested-callbacks */
 import {assert} from 'chai';
-import getResultInfo from './get-result-info';
+import {getPosition, sortResults, countPercent} from './get-result-info';
+
+const results = [
+  {"time": 289, "scores": 8, "lives": 1},
+  {"time": 213, "scores": 5, "lives": 1},
+  {"time": 123, "scores": 4, "lives": 3},
+  {"time": 165, "scores": 10, "lives": 2},
+];
 
 describe(`Вывод информации о результате игры`, () => {
-  describe(`Определяем место среди всех игроков`, () => {
-    it(`должен подсчитать результат среди всех игроков`, () => {
-      const results = [4, 5, 8, 10, 12];
-      const playerResults = {scores: 6, lives: 3, time: 30000};
-      const expectedPlace = 4;
-      // Разбивая строку на массив и формирую из него новый массив с элементами,
-      // которые можно преобразовать в число. В данном случае беру первый элемент массива.
-      const place = getResultInfo(results, playerResults).split(` `).filter((el) => !isNaN(parseInt(el, 10)))[0];
+  describe(`Сортируем массив результатов и получаем место`, () => {
+    it(`должен отсортировать массив с резльтатами игроков`, () => {
+      const playerResults = {scores: 6, lives: 3, time: 123};
+      const allResults = [...results];
 
-      assert.equal(parseInt(place, 10), expectedPlace);
+      allResults.push(playerResults);
+
+      const sortedResults = sortResults(allResults);
+      const position = getPosition(sortedResults, playerResults);
+
+      assert.equal(position, 3);
     });
 
-    it(`должен подсчитать результат среди всех игроков (другие входные параметры)`, () => {
-      const results = [3, 5, 8, 15, 14];
-      const playerResults = {scores: 20, lives: 3, time: 30000};
-      const expectedPlace = 1;
-      const place = getResultInfo(results, playerResults).split(` `).filter((el) => !isNaN(parseInt(el, 10)))[0];
+    it(`должен отсортировать массив с резльтатами игроков (другие входные данные)`, () => {
+      const playerResults = {scores: 12, lives: 2, time: 123};
+      const allResults = [...results];
 
-      assert.equal(parseInt(place, 10), expectedPlace);
+      allResults.push(playerResults);
+
+      const sortedResults = sortResults(allResults);
+      const position = getPosition(sortedResults, playerResults);
+
+      assert.equal(position, 1);
+    });
+
+    it(`должен отсортировать массив с резльтатами игроков при одинаковом кол-ве очков, но разном кол-ве жизней`, () => {
+      const playerResults = {scores: 10, lives: 3, time: 123};
+      const allResults = [...results];
+
+      allResults.push(playerResults);
+
+      const sortedResults = sortResults(allResults);
+      const position = getPosition(sortedResults, playerResults);
+
+      assert.equal(position, 1);
+    });
+
+    it(`должен отсортировать массив с резльтатами игроков при одинаковом кол-ве очков и жизней, но разном кол-ве времени`, () => {
+      const playerResults = {scores: 10, lives: 2, time: 100};
+      const allResults = [...results];
+
+      allResults.push(playerResults);
+
+      const sortedResults = sortResults(allResults);
+      const position = getPosition(sortedResults, playerResults);
+
+      assert.equal(position, 1);
     });
   });
 
   describe(`Определяем % среди всех игроков`, () => {
     it(`должен подсчитать % среди всех игроков (первое место)`, () => {
-      const results = [4, 5, 8, 12];
-      const playerResults = {scores: 14, lives: 3, time: 30000};
-      const expectedPercent = 80;
-      // Разбивая строку на массив и формирую из него новый массив с элементами,
-      // которые можно преобразовать в число. В данном случае беру последний элемент массива.
-      const place = getResultInfo(results, playerResults).split(` `).filter((el) => !isNaN(parseInt(el, 10)))[2];
+      const playerResults = {scores: 10, lives: 2, time: 100};
+      const allResults = [...results];
 
-      assert.equal(parseInt(place, 10), expectedPercent);
+      allResults.push(playerResults);
+
+      const sortedResults = sortResults(allResults);
+      const sumPlayers = sortedResults.length;
+      const position = getPosition(sortedResults, playerResults);
+      const percent = countPercent(sumPlayers, position);
+
+      assert.equal(percent, 80);
     });
 
     it(`должен подсчитать % среди всех игроков (любое место в середине)`, () => {
-      const results = [3, 5, 8, 15, 16, 17, 18, 19, 20, 21];
-      const playerResults = {scores: 9, lives: 3, time: 30000};
-      const expectedPercent = 27;
-      const place = getResultInfo(results, playerResults).split(` `).filter((el) => !isNaN(parseInt(el, 10)))[2];
+      const playerResults = {scores: 6, lives: 3, time: 321};
+      const allResults = [...results];
 
-      assert.equal(parseInt(place, 10), expectedPercent);
+      allResults.push(playerResults);
+
+      const sortedResults = sortResults(allResults);
+      const sumPlayers = sortedResults.length;
+      const position = getPosition(sortedResults, playerResults);
+      const percent = countPercent(sumPlayers, position);
+
+      assert.equal(percent, 40);
     });
 
     it(`должен подсчитать % среди всех игроков (последнее место)`, () => {
-      const results = [3, 5, 8, 15, 16, 17, 18, 19, 20, 21];
-      const playerResults = {scores: 1, lives: 3, time: 30000};
-      const expectedPercent = 0;
-      const place = getResultInfo(results, playerResults).split(` `).filter((el) => !isNaN(parseInt(el, 10)))[2];
+      const playerResults = {scores: 1, lives: 1, time: 213};
+      const allResults = [...results];
 
-      assert.equal(parseInt(place, 10), expectedPercent);
+      allResults.push(playerResults);
+
+      const sortedResults = sortResults(allResults);
+      const sumPlayers = sortedResults.length;
+      const position = getPosition(sortedResults, playerResults);
+      const percent = countPercent(sumPlayers, position);
+
+      assert.equal(percent, 0);
     });
   });
 });

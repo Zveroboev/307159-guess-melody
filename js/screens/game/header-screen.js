@@ -9,8 +9,8 @@ export default class HeaderScreen {
 
     const onTimerEnd = () => this.store.setState({gameStatus: `lose`});
 
-    this.timer = this.timer = new Timer(INITIAL_TIME, onTimerEnd);
-    this.view = new HeaderView(this.timer.getTime(), this.store.state.lives);
+    this.timer = new Timer(INITIAL_TIME, onTimerEnd);
+    this.view = new HeaderView(this.timer, this.store.state.lives);
 
     this.onTick = this.onTick.bind(this);
 
@@ -18,9 +18,10 @@ export default class HeaderScreen {
   }
 
   onTick() {
-    const time = this.timer.getTime();
+    const min = this.timer.minutes;
+    const sec = this.timer.seconds;
 
-    this.view.updateTime(time);
+    this.view.updateTime(min, sec);
   }
 
   startTimer() {

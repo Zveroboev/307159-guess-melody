@@ -29,11 +29,12 @@ export default class GameScreen {
   }
 
   setInitialState() {
+    const lastQuestions = this.store.state.levels.length;
+    const type = this.store.state.levels[0].type;
     const gameStatus = GameStatus.PLAYING;
     const level = 1;
-    const type = this.store.state.levels[0].type;
 
-    this.store.setState({gameStatus, level, type});
+    this.store.setState({gameStatus, level, type, lastQuestions});
   }
 
   getContent() {

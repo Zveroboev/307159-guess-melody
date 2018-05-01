@@ -1,3 +1,5 @@
+const SEC_PER_MINUTE = 60;
+
 export default class Timer {
   constructor(initialTime = 0, afterEnd = () => {}) {
     this.time = initialTime;
@@ -6,6 +8,28 @@ export default class Timer {
     this._callbacks = new Set();
 
     this.tick = this.tick.bind(this);
+  }
+
+  get minutes() {
+    return Timer.getCorrectRow(this.countMinutes());
+  }
+
+  get seconds() {
+    return Timer.getCorrectRow(this.countSeconds());
+  }
+
+  static getCorrectRow(value) {
+    const row = value.toString();
+
+    return row.length > 1 ? row : `0${row}`;
+  }
+
+  countMinutes() {
+    return Math.trunc(this.time / SEC_PER_MINUTE);
+  }
+
+  countSeconds() {
+    return Math.trunc(this.time - this.countMinutes() * SEC_PER_MINUTE);
   }
 
   tick() {
@@ -33,5 +57,4 @@ export default class Timer {
   subscribe(cb) {
     this._callbacks.add(cb);
   }
-
 }
