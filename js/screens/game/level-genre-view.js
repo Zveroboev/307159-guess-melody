@@ -19,8 +19,7 @@ export default class GenreView extends AbstractView {
               <div class="genre-answer">
                 <div class="player-wrapper">
                   <div class="player">
-                    <audio src="${answer.src}" preload></audio>
-                    <button class="player-control"></button>
+                    <button class="player-control" data-src="${answer.src}"></button>
                     <div class="player-track">
                       <span class="player-status"></span>
                     </div>
@@ -44,10 +43,13 @@ export default class GenreView extends AbstractView {
     btn.disabled = !checkedAnswer;
   }
 
-  static onPlayClick(evt, btn) {
+  onPlayClick(evt, btn) {
     evt.preventDefault();
+    console.log(`---`, btn);
+    console.log(`---`, this.state);
 
-    const audio = btn.previousElementSibling;
+    const audio = this.state.audios.find((it) => it.src === btn.dataset.src);
+    console.log(`---`, audio);
 
     // TODO: дичь какая-то. Переделать.
     if (this.activeAudio === audio) {
@@ -75,6 +77,8 @@ export default class GenreView extends AbstractView {
     const checkedAnswersGenre = answers.filter((answer) => answer.checked).map((checkedAnswer) => checkedAnswer.dataset.genre);
     const isCorrect = checkedAnswersGenre.every((genre) => genre === this.level.genre);
 
+    this.activeAudio.pause();
+    this.activeAudio.currentTime = 0;
     this.handleAnswer(isCorrect);
   }
 
@@ -86,6 +90,6 @@ export default class GenreView extends AbstractView {
 
     form.addEventListener(`change`, () => GenreView.onAnswerChange(answers, answerBtn));
     form.addEventListener(`submit`, (evt) => this.onSubmit(evt, answers));
-    playButtons.forEach((btn) => btn.addEventListener(`click`, (evt) => GenreView.onPlayClick(evt, evt.target)));
+    playButtons.forEach((btn) => btn.addEventListener(`click`, (evt) => this.onPlayClick(evt, evt.target)));
   }
 }

@@ -54,8 +54,8 @@ export default class Application {
   }
 
   static showResult() {
-    const {time, scores, lives, gameStatus} = store.state;
     const onReplay = Application.startGame;
+    const {time, scores, lives, gameStatus} = store.state;
     const playerResults = {time: INITIAL_TIME - time, scores, lives};
 
     switch (gameStatus) {

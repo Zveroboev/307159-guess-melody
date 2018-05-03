@@ -40,12 +40,12 @@ export default class ArtistView extends AbstractView {
     `;
   }
 
-  static onPlayClick(btn, audio) {
-    if (audio.paused) {
-      audio.play();
+  onPlayClick(btn) {
+    if (this.activeAudio.paused) {
+      this.activeAudio.play();
       btn.classList.add(`player-control--pause`);
     } else {
-      audio.pause();
+      this.activeAudio.pause();
       btn.classList.remove(`player-control--pause`);
     }
   }
@@ -53,15 +53,17 @@ export default class ArtistView extends AbstractView {
   onAnswerClick(evt) {
     const isCorrect = evt.currentTarget.dataset.correct === `true`;
 
+    this.activeAudio.pause();
+    this.activeAudio.currentTime = 0;
     this.handleAnswer(isCorrect);
   }
 
   bind() {
     const answersBtn = [...this._elem.querySelectorAll(`.main-answer`)];
     const playBtn = this._elem.querySelector(`.player-control`);
-    const audio = this.state.audios.find((it) => it.src === this.level.src);
+    this.activeAudio = this.state.audios.find((it) => it.src === this.level.src);
 
-    playBtn.addEventListener(`click`, () => ArtistView.onPlayClick(playBtn, audio));
+    playBtn.addEventListener(`click`, () => this.onPlayClick(playBtn));
     answersBtn.forEach((btn) => btn.addEventListener(`click`, this.onAnswerClick));
   }
 }
