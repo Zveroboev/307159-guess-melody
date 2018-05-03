@@ -1,5 +1,5 @@
+import audioCache from '../../data/audio-cache';
 import AbstractView from '../abstract-view';
-
 
 export default class GenreView extends AbstractView {
   constructor(state, level) {
@@ -7,6 +7,8 @@ export default class GenreView extends AbstractView {
 
     this.state = state;
     this.level = level;
+
+    audioCache.removeActive();
   }
 
   get template() {
@@ -45,30 +47,37 @@ export default class GenreView extends AbstractView {
 
   onPlayClick(evt, btn) {
     evt.preventDefault();
-    console.log(`---`, btn);
-    console.log(`---`, this.state);
 
-    const audio = this.state.audios.find((it) => it.src === btn.dataset.src);
-    console.log(`---`, audio);
+    // получаем аудио, по которому кликнул пользователь
+    const audio = audioCache.getAudio(btn.dataset.src);
 
-    // TODO: дичь какая-то. Переделать.
-    if (this.activeAudio === audio) {
-      this.activeAudio.pause();
-      this.activeAudioBtn.classList.remove(`player-control--pause`);
-      this.activeAudio = null;
-      this.activeAudioBtn = null;
+    // если активный аудио трек совпадает с тем, по которому кликнули:
+    if (audioCache.activeAudio === audio) {
+      // проверяем играет ли в данный момент. Играет - останавлиаем. Не играет - запускаем.
+      if (audioCache.activeAudio.paused) {
+        audioCache.play();
+        this.activeAudioBtn = btn;
+        this.activeAudioBtn.classList.add(`player-control--pause`);
+      } else {
+        audioCache.pause();
+        this.activeAudioBtn.classList.remove(`player-control--pause`);
+      }
+
       return;
-    } else if (this.activeAudio) {
-      this.activeAudio.pause();
-      this.activeAudio.currentTime = 0;
+    }
+
+    // если актиный трек есть, но не совпадает:
+    if (audioCache.activeAudio && audioCache.activeAudio !== audio) {
+      // Останавливаем активный трек, удаляем класс у кнопки активного трека.
+      audioCache.stop();
       this.activeAudioBtn.classList.remove(`player-control--pause`);
     }
 
-    audio.play();
-    btn.classList.add(`player-control--pause`);
-
-    this.activeAudio = audio;
+    audioCache.activeAudio = btn.dataset.src;
     this.activeAudioBtn = btn;
+
+    audioCache.play();
+    btn.classList.add(`player-control--pause`);
   }
 
   onSubmit(evt, answers) {
@@ -77,8 +86,7 @@ export default class GenreView extends AbstractView {
     const checkedAnswersGenre = answers.filter((answer) => answer.checked).map((checkedAnswer) => checkedAnswer.dataset.genre);
     const isCorrect = checkedAnswersGenre.every((genre) => genre === this.level.genre);
 
-    this.activeAudio.pause();
-    this.activeAudio.currentTime = 0;
+    audioCache.stop();
     this.handleAnswer(isCorrect);
   }
 
