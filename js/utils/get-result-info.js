@@ -3,7 +3,7 @@ const winMessage = (position, sumPlayers, percent) => {
 };
 
 export const getPosition = (allResults, playerResult) => {
-  return allResults.findIndex((result) => result === playerResult) + 1;
+  return allResults.findIndex((result) => result.id === playerResult.id) + 1;
 };
 
 export const sortResults = (results) => {
@@ -20,9 +20,6 @@ export const countPercent = (sumPlayers, position) => Math.round(((sumPlayers - 
 
 export default (results, playerResult) => {
   const newResults = [...results];
-
-  newResults.push(playerResult);
-
   const sortedResults = sortResults(newResults);
   const position = getPosition(sortedResults, playerResult);
   const sumPlayers = sortedResults.length;

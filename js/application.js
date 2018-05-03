@@ -17,6 +17,7 @@ const updateState = (levels) => {
 export default class Application {
   static start() {
     Application.showLoader();
+    audioCache.clear();
 
     Loader
         .loadData()
@@ -56,7 +57,12 @@ export default class Application {
   static showResult() {
     let onReplay;
     const {time, scores, lives, gameStatus} = store.state;
-    const playerResults = {time: INITIAL_TIME - time, scores, lives};
+    const playerResults = {
+      id: new Date(),
+      time: INITIAL_TIME - time,
+      scores,
+      lives
+    };
 
     audioCache.stop();
     audioCache.removeActive();

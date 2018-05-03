@@ -38,6 +38,11 @@ export default class AudioCache {
     this._activeAudio = null;
   }
 
+  clear() {
+    this.audios = [];
+    this.removeActive();
+  }
+
   play() {
     if (this._activeAudio) {
       this._activeAudio.play();
