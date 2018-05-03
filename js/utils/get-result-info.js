@@ -1,5 +1,9 @@
+import declareNoun from '../utils/declare-a-noun';
+
 const winMessage = (position, sumPlayers, percent) => {
-  return `Вы заняли ${position} место из ${sumPlayers} игроков. Это лучше, чем у ${percent}% игроков`;
+  const playerWord = declareNoun(sumPlayers, `игрока`, `игроков`, `игроков`);
+
+  return `Вы заняли ${position} место из ${sumPlayers} ${playerWord}. Это лучше, чем у ${percent}% игроков`;
 };
 
 export const getPosition = (allResults, playerResult) => {
@@ -20,6 +24,7 @@ export const countPercent = (sumPlayers, position) => Math.round(((sumPlayers - 
 
 export default (results, playerResult) => {
   const sortedResults = sortResults([...results]);
+  debugger;
   const position = getPosition(sortedResults, playerResult);
   const sumPlayers = sortedResults.length;
   const percent = countPercent(sumPlayers, position);

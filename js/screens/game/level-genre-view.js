@@ -62,23 +62,22 @@ export default class GenreView extends AbstractView {
         audioCache.pause();
         this.activeAudioBtn.classList.remove(`player-control--pause`);
       }
+    } else {
+      // если актиный трек есть, но не совпадает:
+      if (audioCache.activeAudio && audioCache.activeAudio !== audio) {
+        // Останавливаем активный трек, удаляем класс у кнопки активного трека.
+        audioCache.stop();
+        this.activeAudioBtn.classList.remove(`player-control--pause`);
+      }
 
-      return;
+      audioCache.activeAudio = btn.dataset.src;
+      this.activeAudioBtn = btn;
+
+      audioCache.play();
+      btn.classList.add(`player-control--pause`);
     }
-
-    // если актиный трек есть, но не совпадает:
-    if (audioCache.activeAudio && audioCache.activeAudio !== audio) {
-      // Останавливаем активный трек, удаляем класс у кнопки активного трека.
-      audioCache.stop();
-      this.activeAudioBtn.classList.remove(`player-control--pause`);
-    }
-
-    audioCache.activeAudio = btn.dataset.src;
-    this.activeAudioBtn = btn;
-
-    audioCache.play();
-    btn.classList.add(`player-control--pause`);
   }
+
 
   onSubmit(evt, answers) {
     evt.preventDefault();

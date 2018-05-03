@@ -58,7 +58,7 @@ export default class Application {
     let onReplay;
     const {time, scores, lives, gameStatus} = store.state;
     const playerResults = {
-      id: new Date(),
+      id: Date.now(),
       time: INITIAL_TIME - time,
       scores,
       lives
@@ -71,7 +71,7 @@ export default class Application {
       case GameStatus.LOSE:
         onReplay = Application.startGame;
 
-        new ResultScreen(store, null, onReplay).init();
+        new ResultScreen(store, null, null, onReplay).init();
         break;
       case GameStatus.WIN:
         onReplay = Application.start;
@@ -80,7 +80,7 @@ export default class Application {
         Loader
             .saveResults(playerResults)
             .then(() => Loader.loadResults())
-            .then((results) => new ResultScreen(store, results, onReplay).init())
+            .then((results) => new ResultScreen(store, results, playerResults, onReplay).init())
             .catch(Application.showError);
         break;
       default:

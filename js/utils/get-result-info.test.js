@@ -61,10 +61,8 @@ describe(`Вывод информации о результате игры`, () 
     });
 
     it(`должен занять первое место если это единственный результат`, () => {
-      const playerResults = {scores: 6, lives: 3, time: 123, id: 5};
-      const allResults = [];
-
-      allResults.push(Object.assign({}, playerResults));
+      const playerResults = {scores: 6, lives: 3, time: 123, id: 1};
+      const allResults = [{scores: 6, lives: 3, time: 123, id: 1}];
 
       const sortedResults = sortResults(allResults);
       const position = getPosition(sortedResults, playerResults);
