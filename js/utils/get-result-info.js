@@ -24,7 +24,6 @@ export const countPercent = (sumPlayers, position) => Math.round(((sumPlayers - 
 
 export default (results, playerResult) => {
   const sortedResults = sortResults([...results]);
-  debugger;
   const position = getPosition(sortedResults, playerResult);
   const sumPlayers = sortedResults.length;
   const percent = countPercent(sumPlayers, position);

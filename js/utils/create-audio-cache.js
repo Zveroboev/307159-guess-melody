@@ -25,14 +25,13 @@ export default class AudioCache {
   createAudio(src) {
     return new Promise((resolve, reject) => {
       const audio = new Audio();
-      
 
       audio.src = src;
       audio.oncanplaythrough = (evt) => {
-      	const path = evt.path || (evt.composedPath && evt.composedPath());
-      	
-      	return resolve(path[0]);
-      }
+        const path = evt.path || (evt.composedPath && evt.composedPath());
+
+        return resolve(path[0]);
+      };
       audio.onerror = () => reject();
 
       this.audios.push(audio);
