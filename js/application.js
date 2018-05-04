@@ -3,6 +3,7 @@ import ResultScreen from './screens/results/result-screen';
 import ErrorScreen from './screens/feedback/error-screen';
 import LoadScreen from './screens/feedback/load-screen';
 import GameScreen from './screens/game/game-screen';
+import audioCache from './data/audio-cache';
 import store from './data/store';
 import Loader from './loader';
 
@@ -16,12 +17,12 @@ const updateState = (levels) => {
 export default class Application {
   static start() {
     Application.showLoader();
+    audioCache.clear();
 
     Loader
         .loadData()
         .then(updateState)
         .then(Loader.loadAudios)
-        .then((audios) => store.setState({audios}))
         .then(Application.showWelcome)
         .catch(Application.showError);
   }
@@ -54,20 +55,32 @@ export default class Application {
   }
 
   static showResult() {
+    let onReplay;
     const {time, scores, lives, gameStatus} = store.state;
-    const onReplay = Application.startGame;
-    const playerResults = {time: INITIAL_TIME - time, scores, lives};
+    const playerResults = {
+      id: Date.now(),
+      time: INITIAL_TIME - time,
+      scores,
+      lives
+    };
+
+    audioCache.stop();
+    audioCache.removeActive();
 
     switch (gameStatus) {
       case GameStatus.LOSE:
-        new ResultScreen(store, null, onReplay).init();
+        onReplay = Application.startGame;
+
+        new ResultScreen(store, null, null, onReplay).init();
         break;
       case GameStatus.WIN:
+        onReplay = Application.start;
+
         Application.showLoader();
         Loader
             .saveResults(playerResults)
             .then(() => Loader.loadResults())
-            .then((results) => new ResultScreen(store, results, onReplay).init())
+            .then((results) => new ResultScreen(store, results, playerResults, onReplay).init())
             .catch(Application.showError);
         break;
       default:

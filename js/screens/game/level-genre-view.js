@@ -1,5 +1,5 @@
+import audioCache from '../../data/audio-cache';
 import AbstractView from '../abstract-view';
-
 
 export default class GenreView extends AbstractView {
   constructor(state, level) {
@@ -7,6 +7,8 @@ export default class GenreView extends AbstractView {
 
     this.state = state;
     this.level = level;
+
+    audioCache.removeActive();
   }
 
   get template() {
@@ -19,8 +21,7 @@ export default class GenreView extends AbstractView {
               <div class="genre-answer">
                 <div class="player-wrapper">
                   <div class="player">
-                    <audio src="${answer.src}" preload></audio>
-                    <button class="player-control"></button>
+                    <button class="player-control" data-src="${answer.src}"></button>
                     <div class="player-track">
                       <span class="player-status"></span>
                     </div>
@@ -38,44 +39,37 @@ export default class GenreView extends AbstractView {
     `;
   }
 
-  static onAnswerChange(answers, btn) {
-    const checkedAnswer = answers.find((answer) => answer.checked);
-
-    btn.disabled = !checkedAnswer;
-  }
-
-  static onPlayClick(evt, btn) {
+  onPlayClick(evt, btn) {
     evt.preventDefault();
 
-    const audio = btn.previousElementSibling;
+    // получаем аудио, по которому кликнул пользователь
+    const audio = audioCache.getAudio(btn.dataset.src);
 
-    // TODO: дичь какая-то. Переделать.
-    if (this.activeAudio === audio) {
-      this.activeAudio.pause();
-      this.activeAudioBtn.classList.remove(`player-control--pause`);
-      this.activeAudio = null;
-      this.activeAudioBtn = null;
-      return;
-    } else if (this.activeAudio) {
-      this.activeAudio.pause();
-      this.activeAudio.currentTime = 0;
-      this.activeAudioBtn.classList.remove(`player-control--pause`);
+    // если активный аудио трек совпадает с тем, по которому кликнули:
+    if (audioCache.activeAudio === audio) {
+      // проверяем играет ли в данный момент. Играет - останавлиаем. Не играет - запускаем.
+      if (audioCache.activeAudio.paused) {
+        audioCache.play();
+        this.activeAudioBtn = btn;
+        this.activeAudioBtn.classList.add(`player-control--pause`);
+      } else {
+        audioCache.pause();
+        this.activeAudioBtn.classList.remove(`player-control--pause`);
+      }
+    } else {
+      // если актиный трек есть, но не совпадает:
+      if (audioCache.activeAudio && audioCache.activeAudio !== audio) {
+        // Останавливаем активный трек, удаляем класс у кнопки активного трека.
+        audioCache.stop();
+        this.activeAudioBtn.classList.remove(`player-control--pause`);
+      }
+
+      audioCache.activeAudio = btn.dataset.src;
+      this.activeAudioBtn = btn;
+
+      audioCache.play();
+      btn.classList.add(`player-control--pause`);
     }
-
-    audio.play();
-    btn.classList.add(`player-control--pause`);
-
-    this.activeAudio = audio;
-    this.activeAudioBtn = btn;
-  }
-
-  onSubmit(evt, answers) {
-    evt.preventDefault();
-
-    const checkedAnswersGenre = answers.filter((answer) => answer.checked).map((checkedAnswer) => checkedAnswer.dataset.genre);
-    const isCorrect = checkedAnswersGenre.every((genre) => genre === this.level.genre);
-
-    this.handleAnswer(isCorrect);
   }
 
   bind() {
@@ -86,6 +80,23 @@ export default class GenreView extends AbstractView {
 
     form.addEventListener(`change`, () => GenreView.onAnswerChange(answers, answerBtn));
     form.addEventListener(`submit`, (evt) => this.onSubmit(evt, answers));
-    playButtons.forEach((btn) => btn.addEventListener(`click`, (evt) => GenreView.onPlayClick(evt, evt.target)));
+    playButtons.forEach((btn) => btn.addEventListener(`click`, (evt) => this.onPlayClick(evt, evt.target)));
+  }
+
+
+  onSubmit(evt, answers) {
+    evt.preventDefault();
+
+    const checkedAnswersGenre = answers.filter((answer) => answer.checked).map((checkedAnswer) => checkedAnswer.dataset.genre);
+    const isCorrect = checkedAnswersGenre.every((genre) => genre === this.level.genre);
+
+    audioCache.stop();
+    this.handleAnswer(isCorrect);
+  }
+
+  static onAnswerChange(answers, btn) {
+    const checkedAnswer = answers.find((answer) => answer.checked);
+
+    btn.disabled = !checkedAnswer;
   }
 }

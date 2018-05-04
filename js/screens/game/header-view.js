@@ -12,6 +12,15 @@ export default class HeaderView extends AbstractView {
     this.lives = lives;
   }
 
+  get template() {
+    return `
+      <div>
+        ${this.getTimeTemplate()}
+        ${this.getLivesTemplate()}
+      </div>
+    `;
+  }
+
   getTimeTemplate() {
     return `
       <svg xmlns="http://www.w3.org/2000/svg" class="timer" viewBox="0 0 780 780">
@@ -38,19 +47,8 @@ export default class HeaderView extends AbstractView {
     `;
   }
 
-  get template() {
-    return `
-      <div>
-        ${this.getTimeTemplate()}
-        ${this.getLivesTemplate()}
-      </div>
-    `;
-  }
-
-  bind() {
-    this.minContainer = this._elem.querySelector(`.timer-value-mins`);
-    this.secContainer = this._elem.querySelector(`.timer-value-secs`);
-    this.livesContainer = this._elem.querySelector(`.main-mistakes`);
+  updateLives(lives) {
+    this.livesContainer.innerHTML = wrongAnswer.repeat(MAX_LIVES - lives);
   }
 
   updateTime(min, sec) {
@@ -58,7 +56,13 @@ export default class HeaderView extends AbstractView {
     this.secContainer.textContent = sec;
   }
 
-  updateLives(lives) {
-    this.livesContainer.innerHTML = wrongAnswer.repeat(MAX_LIVES - lives);
+  addFlashing() {
+    this._elem.querySelector(`.timer-value`).classList.add(`timer-value--finished`);
+  }
+
+  bind() {
+    this.minContainer = this._elem.querySelector(`.timer-value-mins`);
+    this.secContainer = this._elem.querySelector(`.timer-value-secs`);
+    this.livesContainer = this._elem.querySelector(`.main-mistakes`);
   }
 }

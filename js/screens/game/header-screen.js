@@ -1,7 +1,7 @@
 import HeaderView from './header-view';
 import Timer from '../../utils/timer';
 
-import {INITIAL_TIME} from '../../data/constants';
+import {INITIAL_TIME, WARNING_TIME} from '../../data/constants';
 
 export default class HeaderScreen {
   constructor(store) {
@@ -17,7 +17,19 @@ export default class HeaderScreen {
     this.timer.subscribe(this.onTick);
   }
 
+  get element() {
+    return this.view.element;
+  }
+
+  get time() {
+    return this.timer.getTime();
+  }
+
   onTick() {
+    if (this.timer.getTime() === WARNING_TIME) {
+      this.view.addFlashing();
+    }
+
     const min = this.timer.minutes;
     const sec = this.timer.seconds;
 
@@ -34,14 +46,6 @@ export default class HeaderScreen {
 
   updateLives() {
     this.view.updateLives(this.store.state.lives);
-  }
-
-  get time() {
-    return this.timer.getTime();
-  }
-
-  get element() {
-    return this.view.element;
   }
 
 }

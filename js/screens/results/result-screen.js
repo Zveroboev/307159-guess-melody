@@ -7,14 +7,15 @@ import initialState from '../../data/initial-state';
 import {GameStatus} from '../../data/constants';
 
 export default class GameScreen {
-  constructor(store, allResults, onReplay) {
+  constructor(store, allResults, playerResults, onReplay) {
     this.store = store;
     this.allResults = allResults;
+    this.playerResults = playerResults;
     this.onReplay = onReplay;
 
     this.loseLivesResult = new LoseLivesView();
     this.loseTimeResult = new LoseTimeView();
-    this.winResult = new WinView(this.store.state, this.allResults);
+    this.winResult = new WinView(this.store.state, this.allResults, this.playerResults);
 
     this.onReplayClick = this.onReplayClick.bind(this);
   }

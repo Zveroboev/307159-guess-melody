@@ -3,7 +3,6 @@ import countScored from '../../utils/count-scored';
 import LevelArtistView from './level-artist-view';
 import LevelGenreView from './level-genre-view';
 import HeaderScreen from './header-screen';
-import Timer from '../../utils/timer';
 
 import {FAST_ANSWER_TIME, QuestionType, GameStatus} from '../../data/constants';
 
@@ -18,7 +17,7 @@ export default class GameScreen {
 
     this.header = new HeaderScreen(store);
     this.content = this.getContent();
-    this.timer = new Timer(FAST_ANSWER_TIME);
+    this.time = this.header.time;
 
     this.root = document.createElement(`div`);
     this.root.appendChild(this.header.element);
@@ -58,8 +57,7 @@ export default class GameScreen {
         const newContent = this.getContent();
 
         this.root.replaceChild(newContent.element, this.content.element);
-        this.timer = new Timer(FAST_ANSWER_TIME);
-        this.timer.start();
+        this.time = this.header.time;
         this.content = newContent;
         break;
       case GameStatus.LOSE:
@@ -77,14 +75,13 @@ export default class GameScreen {
 
   handleAnswer(isCorrect) {
     const {state} = this.store;
-    const isFast = this.timer.getTime() > 0;
+    const isFast = this.time - this.header.time < FAST_ANSWER_TIME;
     const newState = countScored(this.store.state, isCorrect, isFast);
 
     if (newState.gameStatus === GameStatus.PLAYING) {
       newState.type = state.levels[state.level].type;
     }
 
-    this.timer.stop();
     this.store.setState(newState);
 
     if (!isCorrect) {
@@ -97,7 +94,6 @@ export default class GameScreen {
   }
 
   init() {
-    this.timer.start();
     renderScreen(this.root);
   }
 }

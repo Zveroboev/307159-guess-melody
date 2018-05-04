@@ -1,3 +1,4 @@
+import audioCache from '../../data/audio-cache';
 import AbstractView from '../abstract-view';
 
 export default class ArtistView extends AbstractView {
@@ -6,6 +7,8 @@ export default class ArtistView extends AbstractView {
 
     this.state = state;
     this.level = level;
+
+    audioCache.activeAudio = this.level.src;
 
     this.onAnswerClick = this.onAnswerClick.bind(this);
   }
@@ -40,28 +43,28 @@ export default class ArtistView extends AbstractView {
     `;
   }
 
-  static onPlayClick(btn, audio) {
-    if (audio.paused) {
-      audio.play();
-      btn.classList.add(`player-control--pause`);
-    } else {
-      audio.pause();
-      btn.classList.remove(`player-control--pause`);
-    }
-  }
-
   onAnswerClick(evt) {
     const isCorrect = evt.currentTarget.dataset.correct === `true`;
 
+    audioCache.stop();
     this.handleAnswer(isCorrect);
   }
 
   bind() {
     const answersBtn = [...this._elem.querySelectorAll(`.main-answer`)];
     const playBtn = this._elem.querySelector(`.player-control`);
-    const audio = this.state.audios.find((it) => it.src === this.level.src);
 
-    playBtn.addEventListener(`click`, () => ArtistView.onPlayClick(playBtn, audio));
+    playBtn.addEventListener(`click`, () => ArtistView.onPlayClick(playBtn));
     answersBtn.forEach((btn) => btn.addEventListener(`click`, this.onAnswerClick));
+  }
+
+  static onPlayClick(btn) {
+    if (audioCache.activeAudio.paused) {
+      audioCache.play();
+      btn.classList.add(`player-control--pause`);
+    } else {
+      audioCache.pause();
+      btn.classList.remove(`player-control--pause`);
+    }
   }
 }

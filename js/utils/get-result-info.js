@@ -1,9 +1,13 @@
+import declareNoun from '../utils/declare-a-noun';
+
 const winMessage = (position, sumPlayers, percent) => {
-  return `Вы заняли ${position} место из ${sumPlayers} игроков. Это лучше, чем у ${percent}% игроков`;
+  const playerWord = declareNoun(sumPlayers, `игрока`, `игроков`, `игроков`);
+
+  return `Вы заняли ${position} место из ${sumPlayers} ${playerWord}. Это лучше, чем у ${percent}% игроков`;
 };
 
 export const getPosition = (allResults, playerResult) => {
-  return allResults.findIndex((result) => result === playerResult) + 1;
+  return allResults.findIndex((result) => result.id === playerResult.id) + 1;
 };
 
 export const sortResults = (results) => {
@@ -19,11 +23,7 @@ export const sortResults = (results) => {
 export const countPercent = (sumPlayers, position) => Math.round(((sumPlayers - position) / sumPlayers) * 100);
 
 export default (results, playerResult) => {
-  const newResults = [...results];
-
-  newResults.push(playerResult);
-
-  const sortedResults = sortResults(newResults);
+  const sortedResults = sortResults([...results]);
   const position = getPosition(sortedResults, playerResult);
   const sumPlayers = sortedResults.length;
   const percent = countPercent(sumPlayers, position);

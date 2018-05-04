@@ -1,5 +1,6 @@
 import {URL, USER_ID} from './data/constants';
 import getValuesByKey from './utils/get-values-by-key';
+import audioCache from './data/audio-cache';
 
 const checkStatus = (response) => {
   if (response.ok) {
@@ -11,14 +12,6 @@ const checkStatus = (response) => {
 
 const toJSON = (res) => res.json();
 
-const getAudio = (src) => new Promise((resolve, reject) => {
-  const audio = new Audio();
-
-  audio.src = src;
-  audio.oncanplaythrough = (evt) => resolve(evt.path[0]);
-  audio.onerror = () => reject();
-});
-
 export default class Loader {
   static loadData() {
     return window.fetch(`${URL}/questions`).then(checkStatus).then(toJSON);
@@ -26,9 +19,9 @@ export default class Loader {
 
   static loadAudios(gameData) {
     const sources = getValuesByKey(gameData, `src`);
-    const audios = sources.map((source) => getAudio(source));
+    const audioPromises = sources.map((src) => audioCache.createAudio(src));
 
-    return Promise.all(audios);
+    return Promise.all(audioPromises);
   }
 
   static loadResults() {
