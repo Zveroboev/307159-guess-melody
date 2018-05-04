@@ -1,7 +1,7 @@
 import HeaderView from './header-view';
 import Timer from '../../utils/timer';
 
-import {INITIAL_TIME} from '../../data/constants';
+import {INITIAL_TIME, WARNING_TIME} from '../../data/constants';
 
 export default class HeaderScreen {
   constructor(store) {
@@ -26,6 +26,10 @@ export default class HeaderScreen {
   }
 
   onTick() {
+    if (this.timer.getTime() === WARNING_TIME) {
+      this.view.addFlashing();
+    }
+
     const min = this.timer.minutes;
     const sec = this.timer.seconds;
 

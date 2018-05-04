@@ -51,10 +51,13 @@ export default class HeaderView extends AbstractView {
     this.livesContainer.innerHTML = wrongAnswer.repeat(MAX_LIVES - lives);
   }
 
-
   updateTime(min, sec) {
     this.minContainer.textContent = min;
     this.secContainer.textContent = sec;
+  }
+
+  addFlashing() {
+    this._elem.querySelector(`.timer-value`).classList.add(`timer-value--finished`);
   }
 
   bind() {
