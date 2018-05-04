@@ -12,6 +12,15 @@ export default class HeaderView extends AbstractView {
     this.lives = lives;
   }
 
+  get template() {
+    return `
+      <div>
+        ${this.getTimeTemplate()}
+        ${this.getLivesTemplate()}
+      </div>
+    `;
+  }
+
   getTimeTemplate() {
     return `
       <svg xmlns="http://www.w3.org/2000/svg" class="timer" viewBox="0 0 780 780">
@@ -38,27 +47,19 @@ export default class HeaderView extends AbstractView {
     `;
   }
 
-  get template() {
-    return `
-      <div>
-        ${this.getTimeTemplate()}
-        ${this.getLivesTemplate()}
-      </div>
-    `;
+  updateLives(lives) {
+    this.livesContainer.innerHTML = wrongAnswer.repeat(MAX_LIVES - lives);
   }
 
-  bind() {
-    this.minContainer = this._elem.querySelector(`.timer-value-mins`);
-    this.secContainer = this._elem.querySelector(`.timer-value-secs`);
-    this.livesContainer = this._elem.querySelector(`.main-mistakes`);
-  }
 
   updateTime(min, sec) {
     this.minContainer.textContent = min;
     this.secContainer.textContent = sec;
   }
 
-  updateLives(lives) {
-    this.livesContainer.innerHTML = wrongAnswer.repeat(MAX_LIVES - lives);
+  bind() {
+    this.minContainer = this._elem.querySelector(`.timer-value-mins`);
+    this.secContainer = this._elem.querySelector(`.timer-value-secs`);
+    this.livesContainer = this._elem.querySelector(`.main-mistakes`);
   }
 }

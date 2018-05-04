@@ -17,6 +17,14 @@ export default class HeaderScreen {
     this.timer.subscribe(this.onTick);
   }
 
+  get element() {
+    return this.view.element;
+  }
+
+  get time() {
+    return this.timer.getTime();
+  }
+
   onTick() {
     const min = this.timer.minutes;
     const sec = this.timer.seconds;
@@ -34,14 +42,6 @@ export default class HeaderScreen {
 
   updateLives() {
     this.view.updateLives(this.store.state.lives);
-  }
-
-  get time() {
-    return this.timer.getTime();
-  }
-
-  get element() {
-    return this.view.element;
   }
 
 }

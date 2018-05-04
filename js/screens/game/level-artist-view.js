@@ -43,16 +43,6 @@ export default class ArtistView extends AbstractView {
     `;
   }
 
-  static onPlayClick(btn) {
-    if (audioCache.activeAudio.paused) {
-      audioCache.play();
-      btn.classList.add(`player-control--pause`);
-    } else {
-      audioCache.pause();
-      btn.classList.remove(`player-control--pause`);
-    }
-  }
-
   onAnswerClick(evt) {
     const isCorrect = evt.currentTarget.dataset.correct === `true`;
 
@@ -66,5 +56,15 @@ export default class ArtistView extends AbstractView {
 
     playBtn.addEventListener(`click`, () => ArtistView.onPlayClick(playBtn));
     answersBtn.forEach((btn) => btn.addEventListener(`click`, this.onAnswerClick));
+  }
+
+  static onPlayClick(btn) {
+    if (audioCache.activeAudio.paused) {
+      audioCache.play();
+      btn.classList.add(`player-control--pause`);
+    } else {
+      audioCache.pause();
+      btn.classList.remove(`player-control--pause`);
+    }
   }
 }

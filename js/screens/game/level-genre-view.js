@@ -39,12 +39,6 @@ export default class GenreView extends AbstractView {
     `;
   }
 
-  static onAnswerChange(answers, btn) {
-    const checkedAnswer = answers.find((answer) => answer.checked);
-
-    btn.disabled = !checkedAnswer;
-  }
-
   onPlayClick(evt, btn) {
     evt.preventDefault();
 
@@ -78,6 +72,17 @@ export default class GenreView extends AbstractView {
     }
   }
 
+  bind() {
+    const answers = [...this._elem.querySelectorAll(`input[name="answer"]`)];
+    const playButtons = [...this._elem.querySelectorAll(`.player-control`)];
+    const answerBtn = this._elem.querySelector(`.genre-answer-send`);
+    const form = this._elem.querySelector(`.genre`);
+
+    form.addEventListener(`change`, () => GenreView.onAnswerChange(answers, answerBtn));
+    form.addEventListener(`submit`, (evt) => this.onSubmit(evt, answers));
+    playButtons.forEach((btn) => btn.addEventListener(`click`, (evt) => this.onPlayClick(evt, evt.target)));
+  }
+
 
   onSubmit(evt, answers) {
     evt.preventDefault();
@@ -89,14 +94,9 @@ export default class GenreView extends AbstractView {
     this.handleAnswer(isCorrect);
   }
 
-  bind() {
-    const answers = [...this._elem.querySelectorAll(`input[name="answer"]`)];
-    const playButtons = [...this._elem.querySelectorAll(`.player-control`)];
-    const answerBtn = this._elem.querySelector(`.genre-answer-send`);
-    const form = this._elem.querySelector(`.genre`);
+  static onAnswerChange(answers, btn) {
+    const checkedAnswer = answers.find((answer) => answer.checked);
 
-    form.addEventListener(`change`, () => GenreView.onAnswerChange(answers, answerBtn));
-    form.addEventListener(`submit`, (evt) => this.onSubmit(evt, answers));
-    playButtons.forEach((btn) => btn.addEventListener(`click`, (evt) => this.onPlayClick(evt, evt.target)));
+    btn.disabled = !checkedAnswer;
   }
 }

@@ -18,10 +18,8 @@ export default class Timer {
     return Timer.getCorrectRow(this.countSeconds());
   }
 
-  static getCorrectRow(value) {
-    const row = value.toString();
-
-    return row.length > 1 ? row : `0${row}`;
+  getTime() {
+    return this.time < 0 ? null : this.time;
   }
 
   countMinutes() {
@@ -50,11 +48,13 @@ export default class Timer {
     clearInterval(this._interval);
   }
 
-  getTime() {
-    return this.time < 0 ? null : this.time;
-  }
-
   subscribe(cb) {
     this._callbacks.add(cb);
+  }
+
+  static getCorrectRow(value) {
+    const row = value.toString();
+
+    return row.length > 1 ? row : `0${row}`;
   }
 }
