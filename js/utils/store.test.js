@@ -1,5 +1,5 @@
 import {assert} from 'chai';
-import Store from './create-store';
+import Store from './store';
 
 describe(`Класс хранилища состояния приложения`, () => {
   describe(`Изменение состояния`, () => {

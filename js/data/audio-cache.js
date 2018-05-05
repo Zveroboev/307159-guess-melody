@@ -1,3 +1,3 @@
-import AudioCache from '../utils/create-audio-cache';
+import AudioCache from '../utils/audio-cache';
 
 export default new AudioCache();
