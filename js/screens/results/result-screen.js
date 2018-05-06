@@ -6,7 +6,7 @@ import WinView from './win-view';
 import initialState from '../../data/initial-state';
 import {GameStatus} from '../../data/constants';
 
-export default class GameScreen {
+export default class ResultScreen {
   constructor(store, allResults, playerResults, onReplay) {
     this.store = store;
     this.allResults = allResults;
@@ -24,12 +24,15 @@ export default class GameScreen {
     const {state} = this.store;
 
     switch (state.gameStatus) {
-      case GameStatus.WIN:
+      case GameStatus.WIN: {
         return this.winResult;
-      case GameStatus.LOSE:
+      }
+      case GameStatus.LOSE: {
         return state.lives > 0 ? this.loseTimeResult : this.loseLivesResult;
-      default:
+      }
+      default: {
         throw new Error(`Unknown game status`);
+      }
     }
   }
 

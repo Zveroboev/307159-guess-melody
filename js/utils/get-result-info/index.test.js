@@ -1,7 +1,7 @@
 // Из-за вложенности describe-describe-it, ESLint ругается на один вложенный коллбек, думая, что он 4 по вложенности
 /* eslint-disable max-nested-callbacks */
 import {assert} from 'chai';
-import {getPosition, sortResults, countPercent} from './get-result-info';
+import {getPosition, sortResults, countPercent} from './index';
 
 const results = [
   {"time": 289, "scores": 8, "lives": 1, "id": 1},

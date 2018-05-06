@@ -1,4 +1,4 @@
-import {FAIL_SCORE} from '../data/constants';
+import {FAIL_SCORE} from '../../data/constants';
 
 export default (prevState, isCorrect, isFast) => {
   let {lastQuestions, lives, scores, gameStatus, level, fastAnswers} = prevState;

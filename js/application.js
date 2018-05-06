@@ -42,7 +42,7 @@ export default class Application {
 
   static showWelcome() {
     const onGameStart = Application.startGame;
-    const welcomeScreen = new WelcomeScreen(store, onGameStart);
+    const welcomeScreen = new WelcomeScreen(onGameStart);
 
     welcomeScreen.init();
   }
@@ -68,12 +68,13 @@ export default class Application {
     audioCache.removeActive();
 
     switch (gameStatus) {
-      case GameStatus.LOSE:
+      case GameStatus.LOSE: {
         onReplay = Application.startGame;
 
         new ResultScreen(store, null, null, onReplay).init();
         break;
-      case GameStatus.WIN:
+      }
+      case GameStatus.WIN: {
         onReplay = Application.start;
 
         Application.showLoader();
@@ -83,8 +84,10 @@ export default class Application {
             .then((results) => new ResultScreen(store, results, playerResults, onReplay).init())
             .catch(Application.showError);
         break;
-      default:
+      }
+      default: {
         throw new Error(`Unknown game status`);
+      }
     }
   }
 }

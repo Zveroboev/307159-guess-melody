@@ -1,5 +1,5 @@
 import {assert} from 'chai';
-import Store from './store';
+import Store from './index';
 
 describe(`Класс хранилища состояния приложения`, () => {
   describe(`Изменение состояния`, () => {
@@ -51,7 +51,7 @@ describe(`Класс хранилища состояния приложения`
       const callback = () => {};
 
       store.subscribe(callback);
-      assert.include(store._callbacks, callback);
+      assert.include(store.callbacks, callback);
     });
 
     it(`должен вызвать callback после обновления состояния`, () => {
@@ -75,7 +75,7 @@ describe(`Класс хранилища состояния приложения`
       store.subscribe(callback);
       store.unsubscribe(callback);
 
-      assert.notInclude(store._callbacks, callback);
+      assert.notInclude(store.callbacks, callback);
     });
   });
 });

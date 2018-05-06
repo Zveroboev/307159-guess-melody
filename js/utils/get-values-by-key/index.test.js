@@ -1,5 +1,5 @@
 import {assert} from 'chai';
-import getValuesByKey from './get-values-by-key';
+import getValuesByKey from './index';
 
 describe(`Глубокий поиск по объекту`, () => {
   it(`должен вернуть пустой массив, если в объекте нет нужного ключа`, () => {

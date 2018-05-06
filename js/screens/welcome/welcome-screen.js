@@ -2,8 +2,7 @@ import renderScreen from '../../utils/render-screen';
 import WelcomeView from './welcome-view';
 
 export default class WelcomeScreen {
-  constructor(store, onStart) {
-    this.store = store;
+  constructor(onStart) {
     this.view = new WelcomeView();
     this.onStart = onStart;
   }

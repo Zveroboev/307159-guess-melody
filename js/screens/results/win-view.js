@@ -4,7 +4,7 @@ import declareNoun from '../../utils/declare-a-noun';
 import ReplayView from '../replay-view';
 import Timer from '../../utils/timer';
 
-export default class WelcomeView extends ReplayView {
+export default class WinView extends ReplayView {
   constructor(state, allResults, playerResults) {
     super();
 

@@ -20,7 +20,7 @@ export default class ArtistView extends AbstractView {
           <h2 class="title main-title">${this.level.question}</h2>
           <div class="player-wrapper">
             <div class="player">
-              <button class="player-control"></button>
+              <button class="player-control player-control--pause"></button>
               <div class="player-track">
                 <span class="player-status"></span>
               </div>
@@ -56,6 +56,7 @@ export default class ArtistView extends AbstractView {
 
     playBtn.addEventListener(`click`, () => ArtistView.onPlayClick(playBtn));
     answersBtn.forEach((btn) => btn.addEventListener(`click`, this.onAnswerClick));
+    audioCache.play();
   }
 
   static onPlayClick(btn) {

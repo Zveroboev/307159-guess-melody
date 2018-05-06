@@ -1,4 +1,4 @@
-import declareNoun from '../utils/declare-a-noun';
+import declareNoun from '../declare-a-noun/index';
 
 const winMessage = (position, sumPlayers, percent) => {
   const playerWord = declareNoun(sumPlayers, `игрока`, `игроков`, `игроков`);

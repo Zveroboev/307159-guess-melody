@@ -53,23 +53,26 @@ export default class GameScreen {
     const {gameStatus} = this.store.state;
 
     switch (gameStatus) {
-      case GameStatus.PLAYING:
+      case GameStatus.PLAYING: {
         const newContent = this.getContent();
 
         this.root.replaceChild(newContent.element, this.content.element);
         this.time = this.header.time;
         this.content = newContent;
         break;
+      }
       case GameStatus.LOSE:
-      case GameStatus.WIN:
+      case GameStatus.WIN: {
         this.header.stopTimer();
         this.store.unsubscribe(this.updateLevel);
         this.store.setState({time: this.header.time});
         this.onEnd();
         break;
-      default:
+      }
+      default: {
         this.header.stopTimer();
         throw new Error(`Unknown game status`);
+      }
     }
   }
 

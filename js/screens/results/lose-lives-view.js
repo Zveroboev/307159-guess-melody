@@ -1,6 +1,6 @@
 import ReplayView from '../replay-view';
 
-export default class WelcomeView extends ReplayView {
+export default class LoseLivesView extends ReplayView {
   get template() {
     return `
       <section class="main main--result">

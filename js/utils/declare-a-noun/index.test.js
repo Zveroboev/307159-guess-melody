@@ -1,5 +1,5 @@
 import {assert} from 'chai';
-import declareNoun from './declare-a-noun';
+import declareNoun from './index';
 
 describe(`Функция склонения существительных`, () => {
   describe(`Минуты`, () => {

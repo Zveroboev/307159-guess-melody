@@ -1,6 +1,6 @@
 import {assert} from 'chai';
-import Timer from './timer';
-import Store from './store';
+import Timer from './index';
+import Store from '../store/index';
 
 describe(`Таймер`, () => {
   describe(`Тики`, () => {

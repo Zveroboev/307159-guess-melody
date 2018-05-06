@@ -1,5 +1,6 @@
 import declareNoun from '../../utils/declare-a-noun';
 import AbstractView from '../abstract-view';
+
 import {MAX_LIVES, INITIAL_TIME} from '../../data/constants';
 
 const SEC_PER_MIN = 60;
